@@ -1,0 +1,17 @@
+(footprint "GND VIA" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (attr through_hole)
+  (fp_text reference "REF**" (at 0 -2.54 unlocked) (layer "F.SilkS") hide
+      (effects (font (size 1 1) (thickness 0.1)))
+    (tstamp bc7faa97-e520-406a-ab7b-0c9a5c193cce)
+  )
+  (fp_text value "GND VIA" (at 0 2.54 unlocked) (layer "F.Fab") hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    (tstamp 876f551f-64b4-48aa-80a1-74173806a0a8)
+  )
+  (fp_text user "${REFERENCE}" (at 0 5.08 unlocked) (layer "F.Fab") hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    (tstamp 86c6ca73-0157-4494-b83b-496c2aa1ac29)
+  )
+  (pad "1" thru_hole circle (at 0 0) (size 0.8 0.8) (drill 0.4) (layers "*.Cu") (tstamp 10d37842-c6c0-4fbf-abd6-9b82e3ed81ed))
+)
