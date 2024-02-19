@@ -1,4 +1,4 @@
-# Dog Food Reminder Readme
+# Dog Food Reminder Overview
 This project stems from living in a house with four dogs who love to lie about how much food they have eaten. Since the dogs often slept in different rooms, there was not really a great system to ensure they all got fed the proper amount.
 
 The solution? Create a display that lives near the dog food with physical buttons and a UI simple enough that a 5 year old can operate it while leaving myself room to iterate on the design as I learn more.
