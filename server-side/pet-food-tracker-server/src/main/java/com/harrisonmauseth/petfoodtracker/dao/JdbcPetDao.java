@@ -2,6 +2,7 @@ package com.harrisonmauseth.petfoodtracker.dao;
 
 import com.harrisonmauseth.petfoodtracker.exception.DaoException;
 import com.harrisonmauseth.petfoodtracker.model.Pet;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -54,7 +55,19 @@ public class JdbcPetDao implements PetDao {
 
     @Override
     public Pet createPet(Pet pet) {
-        return null;
+        Pet createdPet = null;
+        String sql = "INSERT INTO pet (user_id, pet_name, pet_nickname, pet_type, pet_birthday, notes) " +
+                "VALUES (?, ?, ?, ?, ?, ?) RETURNING pet_id;";
+        try {
+            int petId = jdbcTemplate.queryForObject(sql, int.class, pet.getUserId(), pet.getPetName(), pet.getPetNickname(),
+                    pet.getPetType(), pet.getBirthday(), pet.getNotes());
+            createdPet = getPetByPetId(petId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return createdPet;
     }
 
     @Override

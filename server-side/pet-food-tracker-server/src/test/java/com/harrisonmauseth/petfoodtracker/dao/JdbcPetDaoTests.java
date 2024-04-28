@@ -42,15 +42,15 @@ public class JdbcPetDaoTests extends BaseDaoTests {
     public void getPets_returns_correct_pets_for_specified_user() {
         pets = dao.getPets(USERNAME_1);
         Assert.assertNotNull(pets);
-        assertPetsMatch("getPets(" + USERNAME_1 +")", PET_1, pets.get(0));
+        assertPetsMatch("getPets(" + USERNAME_1 + ")", PET_1, pets.get(0));
 
         pets = dao.getPets(USERNAME_2);
         Assert.assertNotNull(pets);
-        assertPetsMatch("getPets(" + USERNAME_2 +")", PET_2, pets.get(0));
+        assertPetsMatch("getPets(" + USERNAME_2 + ")", PET_2, pets.get(0));
 
         pets = dao.getPets(USERNAME_3);
         Assert.assertNotNull(pets);
-        assertPetsMatch("getPets(" + USERNAME_3 +")", PET_3, pets.get(0));
+        assertPetsMatch("getPets(" + USERNAME_3 + ")", PET_3, pets.get(0));
     }
 
     @Test
@@ -67,6 +67,24 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         retrievedPet = dao.getPetByPetId(PET_3.getPetId());
         Assert.assertNotNull(retrievedPet);
         assertPetsMatch(nameOfMethodInvoked, PET_3, retrievedPet);
+    }
+
+    @Test
+    public void createPet_creates_pet() {
+        Pet petToCreate = new Pet(0, 1, "newPet", "shortNew",
+                "typeNew", LocalDate.of(2000, 4, 4), "notesNew");
+
+        Pet createdPet = dao.createPet(petToCreate);
+        Assert.assertNotNull("createPet() returned a null pet.", createdPet);
+        Assert.assertTrue("createPet did not return a project with the id set.", createdPet.getPetId() > 0);
+
+        // Set the pet to create id to match the created pet id, then pass through the assertPetsMatch helper method
+        petToCreate.setPetId(createdPet.getPetId());
+        assertPetsMatch("createPet()", petToCreate, createdPet);
+
+        // Verify that the pet was saved to database
+        Pet retrievedPet = dao.getPetByPetId(createdPet.getPetId());
+        assertPetsMatch("createPet() created a pet was unable to be retrieved:", createdPet, retrievedPet);
     }
 
     private void assertPetsMatch(String methodInvoked, Pet expected, Pet actual) {
