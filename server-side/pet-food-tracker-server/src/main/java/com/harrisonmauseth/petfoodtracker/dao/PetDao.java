@@ -20,7 +20,7 @@ public interface PetDao {
      * @param petId the id of the pet you wish to get
      * @return the retrieved pet object
      */
-    List<Pet> getPetByPetId(int petId);
+    Pet getPetByPetId(int petId);
 
     /**
      * Insert a new pet into the database.

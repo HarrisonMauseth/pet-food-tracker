@@ -37,7 +37,7 @@ public class JdbcPetDao implements PetDao {
     }
 
     @Override
-    public List<Pet> getPetByPetId(int petId) {
+    public Pet getPetByPetId(int petId) {
         return null;
     }
 
