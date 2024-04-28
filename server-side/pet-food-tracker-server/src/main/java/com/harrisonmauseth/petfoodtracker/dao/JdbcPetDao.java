@@ -39,7 +39,7 @@ public class JdbcPetDao implements PetDao {
 
     @Override
     public Pet getPetByPetId(int petId) {
-        Pet pet = new Pet();
+        Pet pet = null;
         String sql = "SELECT p.pet_id, p.user_id, p.pet_name, p.pet_nickname, p.pet_type, p.pet_birthday, p.notes " +
                 "FROM pet p WHERE pet_id = ?;";
         try {
@@ -65,7 +65,7 @@ public class JdbcPetDao implements PetDao {
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to database.");
         } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
+            throw new DaoException("Data integrity violation");
         }
         return createdPet;
     }
@@ -90,14 +90,25 @@ public class JdbcPetDao implements PetDao {
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to database.");
         } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
+            throw new DaoException("Data integrity violation.");
         }
         return updatedPet;
     }
 
     @Override
     public int deletePetByPetId(int petId) {
-        return 0;
+        int numberOfRowsAffected = 0;
+        String deleteFromPetTrackerSql = "DELETE FROM tracker WHERE pet_id = ?;";
+        String deleteFromPetSql = "DELETE FROM pet WHERE pet_id = ?;";
+        try {
+            jdbcTemplate.update(deleteFromPetTrackerSql, petId);
+            numberOfRowsAffected = jdbcTemplate.update(deleteFromPetSql, petId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException(e.getMessage());
+        }
+        return numberOfRowsAffected;
     }
 
     private int getUserId(String username) {

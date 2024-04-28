@@ -106,6 +106,14 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         assertPetsMatch("updatePet() updated but failed to save to database:", updatedPet, retrievedPet);
     }
 
+    @Test
+    public void deletePet_deletes_pet() {
+        int rowsAffected = dao.deletePetByPetId(PET_1.getPetId());
+        Assert.assertEquals("deletePet() did not return the correct number of rows affected.", 1, rowsAffected);
+        Pet retreivedPet = dao.getPetByPetId(PET_1.getPetId());
+        Assert.assertNull("deletePet() didn ot remove the pet from the database.", retreivedPet);
+    }
+
     private void assertPetsMatch(String methodInvoked, Pet expected, Pet actual) {
         Assert.assertEquals(methodInvoked + " petIds do not match.", expected.getPetId(), actual.getPetId());
         Assert.assertEquals(methodInvoked + " userIds do not match.", expected.getUserId(), actual.getUserId());
