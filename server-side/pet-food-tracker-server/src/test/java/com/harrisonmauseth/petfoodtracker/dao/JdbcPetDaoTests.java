@@ -53,6 +53,22 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         assertPetsMatch("getPets(" + USERNAME_3 +")", PET_3, pets.get(0));
     }
 
+    @Test
+    public void getPetByPetId_returns_correct_pet() {
+        String nameOfMethodInvoked = "getPetByPetId()";
+        Pet retrievedPet = dao.getPetByPetId(PET_1.getPetId());
+        Assert.assertNotNull(retrievedPet);
+        assertPetsMatch(nameOfMethodInvoked, PET_1, retrievedPet);
+
+        retrievedPet = dao.getPetByPetId(PET_2.getPetId());
+        Assert.assertNotNull(retrievedPet);
+        assertPetsMatch(nameOfMethodInvoked, PET_2, retrievedPet);
+
+        retrievedPet = dao.getPetByPetId(PET_3.getPetId());
+        Assert.assertNotNull(retrievedPet);
+        assertPetsMatch(nameOfMethodInvoked, PET_3, retrievedPet);
+    }
+
     private void assertPetsMatch(String methodInvoked, Pet expected, Pet actual) {
         Assert.assertEquals(methodInvoked + " petIds do not match.", expected.getPetId(), actual.getPetId());
         Assert.assertEquals(methodInvoked + " userIds do not match.", expected.getUserId(), actual.getUserId());
