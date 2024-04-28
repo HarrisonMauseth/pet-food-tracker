@@ -72,7 +72,27 @@ public class JdbcPetDao implements PetDao {
 
     @Override
     public Pet updatePet(Pet pet) {
-        return null;
+        Pet updatedPet = null;
+        String sql = "UPDATE pet SET pet_name = ?, pet_nickname = ?, pet_type = ?, pet_birthday = ?, notes = ? " +
+                "WHERE pet_id = ?;";
+        try {
+            int numberOfRowsAffected = jdbcTemplate.update(
+                    sql, pet.getPetName(),
+                    pet.getPetNickname(),
+                    pet.getPetType(),
+                    pet.getBirthday(),
+                    pet.getNotes(),
+                    pet.getPetId()
+            );
+            if (numberOfRowsAffected == 0) {
+                throw new DaoException("Zero rows affected, expected at least one.");
+            } else updatedPet = getPetByPetId(pet.getPetId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return updatedPet;
     }
 
     @Override

@@ -41,32 +41,31 @@ public class JdbcPetDaoTests extends BaseDaoTests {
     @Test
     public void getPets_returns_correct_pets_for_specified_user() {
         pets = dao.getPets(USERNAME_1);
-        Assert.assertNotNull(pets);
+        Assert.assertNotNull("getPets() returned a null.", pets);
         assertPetsMatch("getPets(" + USERNAME_1 + ")", PET_1, pets.get(0));
 
         pets = dao.getPets(USERNAME_2);
-        Assert.assertNotNull(pets);
+        Assert.assertNotNull("getPets() returned a null.", pets);
         assertPetsMatch("getPets(" + USERNAME_2 + ")", PET_2, pets.get(0));
 
         pets = dao.getPets(USERNAME_3);
-        Assert.assertNotNull(pets);
+        Assert.assertNotNull("getPets() returned null.", pets);
         assertPetsMatch("getPets(" + USERNAME_3 + ")", PET_3, pets.get(0));
     }
 
     @Test
     public void getPetByPetId_returns_correct_pet() {
-        String nameOfMethodInvoked = "getPetByPetId()";
         Pet retrievedPet = dao.getPetByPetId(PET_1.getPetId());
-        Assert.assertNotNull(retrievedPet);
-        assertPetsMatch(nameOfMethodInvoked, PET_1, retrievedPet);
+        Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
+        assertPetsMatch("getPetByPetId()", PET_1, retrievedPet);
 
         retrievedPet = dao.getPetByPetId(PET_2.getPetId());
-        Assert.assertNotNull(retrievedPet);
-        assertPetsMatch(nameOfMethodInvoked, PET_2, retrievedPet);
+        Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
+        assertPetsMatch("getPetByPetId()", PET_2, retrievedPet);
 
         retrievedPet = dao.getPetByPetId(PET_3.getPetId());
-        Assert.assertNotNull(retrievedPet);
-        assertPetsMatch(nameOfMethodInvoked, PET_3, retrievedPet);
+        Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
+        assertPetsMatch("getPetByPetId()", PET_3, retrievedPet);
     }
 
     @Test
@@ -85,6 +84,26 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         // Verify that the pet was saved to database
         Pet retrievedPet = dao.getPetByPetId(createdPet.getPetId());
         assertPetsMatch("createPet() created a pet was unable to be retrieved:", createdPet, retrievedPet);
+    }
+
+    @Test
+    public void updatePet_updatesPet() {
+        Pet petToUpdate = new Pet();
+        petToUpdate.setPetId(PET_1.getPetId());
+        petToUpdate.setUserId(PET_1.getUserId());
+        petToUpdate.setPetName("updatedPet");
+        petToUpdate.setPetNickname("update");
+        petToUpdate.setPetType("updatedType");
+        petToUpdate.setBirthday(LocalDate.of(1900, 12, 12));
+        petToUpdate.setNotes("updatedNotes");
+
+        Pet updatedPet = dao.updatePet(petToUpdate);
+        Assert.assertNotNull("updatePet() returned a null pet.", updatedPet);
+        assertPetsMatch("updatePet() returned an incorrect or incomplete pet:", petToUpdate, updatedPet);
+
+        // Verify pet was saved to database and can be retrieved.
+        Pet retrievedPet = dao.getPetByPetId(PET_1.getPetId());
+        assertPetsMatch("updatePet() updated but failed to save to database:", updatedPet, retrievedPet);
     }
 
     private void assertPetsMatch(String methodInvoked, Pet expected, Pet actual) {
