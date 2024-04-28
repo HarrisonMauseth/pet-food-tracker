@@ -16,7 +16,7 @@ CREATE TABLE pet (
     pet_name varchar(50) NOT NULL,
     pet_nickname varchar(8) NULL,
     pet_type varchar(20) NOT NULL,
-    pet_birthday timestamp NULL,
+    pet_birthday date NULL,
     notes text NULL,
     CONSTRAINT PK_pet PRIMARY KEY (pet_id),
     CONSTRAINT FK_pet_users FOREIGN KEY (user_id) REFERENCES users
