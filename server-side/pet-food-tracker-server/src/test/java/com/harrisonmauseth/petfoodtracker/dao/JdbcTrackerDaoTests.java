@@ -102,6 +102,14 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
         assertEventsMatch("updateEvent() updated but failed to save to the database:", updatedEvent, retrievedEvent);
     }
 
+    @Test
+    public void deleteEvent_deletes_event() {
+        int rowsDeleted = dao.deleteEvent(TRACKER_4.getTrackerId());
+        Assert.assertEquals("deleteEvent() did not delete the correct number of rows.", 1, rowsDeleted);
+        Tracker retrievedEvent = dao.getEventByTrackerId(TRACKER_4.getTrackerId());
+        Assert.assertNull("deleteEvent() did not remove the event from the database.", retrievedEvent);
+    }
+
     private void assertEventsMatch(String methodInvoked, Tracker expected, Tracker actual) {
         Assert.assertEquals(methodInvoked + " trackerIds do not match.", expected.getTrackerId(), actual.getTrackerId());
         Assert.assertEquals(methodInvoked + " userIds do not match.", expected.getUserId(), actual.getUserId());

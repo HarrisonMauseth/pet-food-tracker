@@ -124,6 +124,14 @@ public class JdbcTrackerDao implements TrackerDao {
     @Override
     public int deleteEvent(int trackerId) {
         int numberOfRowsDeleted = 0;
+        String sql = "DELETE FROM tracker WHERE tracker_id = ?;";
+        try {
+            numberOfRowsDeleted = jdbcTemplate.update(sql, trackerId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation");
+        }
         return numberOfRowsDeleted;
     }
 
