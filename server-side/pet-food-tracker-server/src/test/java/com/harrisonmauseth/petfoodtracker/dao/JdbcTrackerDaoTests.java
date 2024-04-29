@@ -88,6 +88,20 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
         assertEventsMatch("created event did not store properly within the database", createdEvent, retrievedEvent);
     }
 
+    @Test
+    public void updateEvent_updates_event() {
+        Tracker eventToUpdate = new Tracker(4, 2, 2, Timestamp.valueOf("2000-05-05 05:55:55"),
+                "updatedFood", 2, "updatedUnit", "updated notes");
+
+        Tracker updatedEvent = dao.updateEvent(eventToUpdate);
+        Assert.assertNotNull("updateEvent() returned a null event.", updatedEvent);
+        assertEventsMatch("updateEvent() returned an incorrect or incomplete event:", eventToUpdate, updatedEvent);
+
+        // Verify the event was saved to the database and can be retrieved.
+        Tracker retrievedEvent = dao.getEventByTrackerId(updatedEvent.getTrackerId());
+        assertEventsMatch("updateEvent() updated but failed to save to the database:", updatedEvent, retrievedEvent);
+    }
+
     private void assertEventsMatch(String methodInvoked, Tracker expected, Tracker actual) {
         Assert.assertEquals(methodInvoked + " trackerIds do not match.", expected.getTrackerId(), actual.getTrackerId());
         Assert.assertEquals(methodInvoked + " userIds do not match.", expected.getUserId(), actual.getUserId());

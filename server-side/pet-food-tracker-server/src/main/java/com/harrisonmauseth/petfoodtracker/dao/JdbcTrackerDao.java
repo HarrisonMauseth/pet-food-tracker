@@ -95,6 +95,29 @@ public class JdbcTrackerDao implements TrackerDao {
     @Override
     public Tracker updateEvent(Tracker eventToUpdate) {
         Tracker updatedEvent = null;
+        String sql = "UPDATE tracker SET user_id = ?, pet_id = ?, time_fed = ?, food_type = ?, portion_amount = ?, " +
+                "portion_units = ?, notes = ? " +
+                "WHERE tracker_id = ?;";
+        try {
+            int numberOfRowsAffected = jdbcTemplate.update(
+                    sql,
+                    eventToUpdate.getUserId(),
+                    eventToUpdate.getPetId(),
+                    eventToUpdate.getTimeFed(),
+                    eventToUpdate.getFoodType(),
+                    eventToUpdate.getPortionAmount(),
+                    eventToUpdate.getPortionUnits(),
+                    eventToUpdate.getNotes(),
+                    eventToUpdate.getTrackerId()
+            );
+            if (numberOfRowsAffected == 0) {
+                throw new DaoException("Zero rows affected, expected at least one.");
+            } else updatedEvent = getEventByTrackerId(eventToUpdate.getTrackerId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation");
+        }
         return updatedEvent;
     }
 
