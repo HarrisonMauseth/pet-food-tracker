@@ -18,5 +18,7 @@ INSERT INTO tracker (user_id, pet_id, time_fed, food_type, portion_amount, porti
     VALUES (2, 2, '2000-02-02 02:00:00', 'food2', 2, 'unit2', 'notes2');
 INSERT INTO tracker (user_id, pet_id, time_fed, food_type, portion_amount, portion_units, notes)
     VALUES (3, 3, '2000-03-03 03:00:00', 'food3', 3, 'unit3', 'notes3');
+INSERT INTO tracker (user_id, pet_id, time_fed, food_type, portion_amount, portion_units, notes)
+    VALUES (1, 1, '2000-04-04 04:00:00', 'food1', 1, 'unit1', 'same food, different time');
 
 COMMIT TRANSACTION;
