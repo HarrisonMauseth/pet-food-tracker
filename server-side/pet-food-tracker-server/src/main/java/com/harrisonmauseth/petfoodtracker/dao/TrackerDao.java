@@ -25,10 +25,10 @@ public interface TrackerDao {
     /**
      * Log a pet feeding event in the database.
      *
-     * @param petId the id of the pet being fed
+     * @param eventToCreate the event to add to the database
      * @return the feeding event data
      */
-    Tracker createNewEvent(int petId);
+    Tracker createNewEvent(Tracker eventToCreate);
 
     /**
      * Update a pet feeding event in the database.

@@ -50,7 +50,7 @@ public class JdbcTrackerDao implements TrackerDao {
     }
 
     @Override
-    public Tracker createNewEvent(int petId) {
+    public Tracker createNewEvent(Tracker eventToCreate) {
         Tracker loggedEvent = null;
         return loggedEvent;
     }
