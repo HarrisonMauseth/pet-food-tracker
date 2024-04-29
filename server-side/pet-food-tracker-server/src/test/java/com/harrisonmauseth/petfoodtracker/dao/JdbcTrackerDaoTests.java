@@ -1,5 +1,6 @@
 package com.harrisonmauseth.petfoodtracker.dao;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.harrisonmauseth.petfoodtracker.model.Tracker;
 import org.junit.Assert;
 import org.junit.Before;
@@ -60,6 +61,24 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
         Assert.assertNotNull("getEventsByPetId() returned null instead of a list.", events);
         Assert.assertFalse("getEventsByPetId() did not return any events.", events.isEmpty());
         assertEventsMatch("getEventsByPetId() did not return correct event.", TRACKER_3, events.get(0));
+    }
+
+    @Test
+    public void createEvent_creates_event() {
+        Tracker eventToCreate = new Tracker(0, 1, 1, Timestamp.valueOf("2000-05-05 05:00:00"),
+                "food1", 1, "unit1", "same food, different time, new event'");
+
+        Tracker createdEvent = dao.createNewEvent(eventToCreate);
+        Assert.assertNotNull("createNewEvent() returned a null event.", createdEvent);
+        Assert.assertTrue("createNewEvent() did not return a pet with the id set.", createdEvent.getPetId() > 0);
+
+        // Set the eventToCreate trackerId to match the createdEvent trackerId, then compare values
+        eventToCreate.setTrackerId(createdEvent.getTrackerId());
+        assertEventsMatch("created events do not match:", eventToCreate, createdEvent);
+
+        // Verify that the event can be retrieved from the database
+        Tracker retrievedEvent = dao.getEventByTrackerId(createdEvent.getTrackerId());
+        assertEventsMatch("created event did not store properly within the database", createdEvent, retrievedEvent);
     }
 
     private void assertEventsMatch(String methodInvoked, Tracker expected, Tracker actual) {

@@ -23,6 +23,14 @@ public interface TrackerDao {
     List<Tracker> getEventsByPetId(int petId);
 
     /**
+     * Get a specific tracker event.
+     *
+     * @param trackerId the id of the tracker event you wish to retrieve
+     * @return the specified tracker event
+     */
+    Tracker getEventByTrackerId(int trackerId);
+
+    /**
      * Log a pet feeding event in the database.
      *
      * @param eventToCreate the event to add to the database

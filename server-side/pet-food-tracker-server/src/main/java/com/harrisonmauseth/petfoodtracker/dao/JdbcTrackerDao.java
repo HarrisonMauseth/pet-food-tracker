@@ -2,6 +2,7 @@ package com.harrisonmauseth.petfoodtracker.dao;
 
 import com.harrisonmauseth.petfoodtracker.exception.DaoException;
 import com.harrisonmauseth.petfoodtracker.model.Tracker;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -50,8 +51,44 @@ public class JdbcTrackerDao implements TrackerDao {
     }
 
     @Override
+    public Tracker getEventByTrackerId(int trackerId) {
+        Tracker event = null;
+        String sql = "SELECT t.tracker_id, t.user_id, t.pet_id, t.time_fed, t.food_type, t.portion_amount, t.portion_units, t.notes " +
+                "FROM tracker t WHERE tracker_id = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, trackerId);
+            if (result.next()) {
+                event = mapRowToTracker(result);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        }
+        return event;
+    }
+
+    @Override
     public Tracker createNewEvent(Tracker eventToCreate) {
         Tracker loggedEvent = null;
+        String sql = "INSERT INTO tracker (user_id, pet_id, time_fed, food_type, portion_amount, portion_units, notes) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING tracker_id;";
+        try {
+            int trackerId = jdbcTemplate.queryForObject(
+                    sql,
+                    int.class,
+                    eventToCreate.getUserId(),
+                    eventToCreate.getPetId(),
+                    eventToCreate.getTimeFed(),
+                    eventToCreate.getFoodType(),
+                    eventToCreate.getPortionAmount(),
+                    eventToCreate.getPortionUnits(),
+                    eventToCreate.getNotes()
+            );
+            loggedEvent = getEventByTrackerId(trackerId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation");
+        }
         return loggedEvent;
     }
 

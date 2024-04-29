@@ -75,9 +75,9 @@ public class JdbcPetDaoTests extends BaseDaoTests {
 
         Pet createdPet = dao.createPet(petToCreate);
         Assert.assertNotNull("createPet() returned a null pet.", createdPet);
-        Assert.assertTrue("createPet did not return a project with the id set.", createdPet.getPetId() > 0);
+        Assert.assertTrue("createPet did not return a pet with the id set.", createdPet.getPetId() > 0);
 
-        // Set the pet to create id to match the created pet id, then pass through the assertPetsMatch helper method
+        // Set the petToCreate petId to match the createdPet petId, then pass through the assertPetsMatch helper method
         petToCreate.setPetId(createdPet.getPetId());
         assertPetsMatch("createPet()", petToCreate, createdPet);
 
