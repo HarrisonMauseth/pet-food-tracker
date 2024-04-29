@@ -19,7 +19,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
     private static final Tracker TRACKER_3 = new Tracker(3, 3, 3, Timestamp.valueOf("2000-03-03 03:00:00"),
             "food3", 3, "unit3", "notes3");
     private static final Tracker TRACKER_4 = new Tracker(4, 1, 1, Timestamp.valueOf("2000-04-04 04:00:00"),
-            "food1", 1, "unit1", "same food, different time'");
+            "food1", 1, "unit1", "same food, different time");
     private static final String USERNAME_1 = "user1";
     private static final String USERNAME_2 = "user2";
     private static final String USERNAME_3 = "user3";
@@ -61,6 +61,13 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
         Assert.assertNotNull("getEventsByPetId() returned null instead of a list.", events);
         Assert.assertFalse("getEventsByPetId() did not return any events.", events.isEmpty());
         assertEventsMatch("getEventsByPetId() did not return correct event.", TRACKER_3, events.get(0));
+    }
+
+    @Test
+    public void getEventByTrackerId_returns_correct_event() {
+        Tracker event = dao.getEventByTrackerId(TRACKER_4.getTrackerId());
+        Assert.assertNotNull("getEventsByTrackerId() returned null instead of an event.", event);
+        assertEventsMatch("getEventByTrackerId()", TRACKER_4, event);
     }
 
     @Test
