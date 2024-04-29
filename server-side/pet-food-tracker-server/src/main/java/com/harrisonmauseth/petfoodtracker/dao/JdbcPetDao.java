@@ -106,7 +106,7 @@ public class JdbcPetDao implements PetDao {
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to database.");
         } catch (DataIntegrityViolationException e) {
-            throw new DaoException(e.getMessage());
+            throw new DaoException("Data integrity violation.");
         }
         return numberOfRowsAffected;
     }

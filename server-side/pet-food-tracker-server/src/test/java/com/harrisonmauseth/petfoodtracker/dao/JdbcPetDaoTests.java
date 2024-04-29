@@ -107,11 +107,11 @@ public class JdbcPetDaoTests extends BaseDaoTests {
     }
 
     @Test
-    public void deletePet_deletes_pet() {
+    public void deletePetByPetId_deletes_pet() {
         int rowsAffected = dao.deletePetByPetId(PET_1.getPetId());
-        Assert.assertEquals("deletePet() did not return the correct number of rows affected.", 1, rowsAffected);
+        Assert.assertEquals("deletePetByPetId() did not return the correct number of rows deleted.", 1, rowsAffected);
         Pet retreivedPet = dao.getPetByPetId(PET_1.getPetId());
-        Assert.assertNull("deletePet() didn ot remove the pet from the database.", retreivedPet);
+        Assert.assertNull("deletePetByPetId() did not remove the pet from the database.", retreivedPet);
     }
 
     private void assertPetsMatch(String methodInvoked, Pet expected, Pet actual) {
