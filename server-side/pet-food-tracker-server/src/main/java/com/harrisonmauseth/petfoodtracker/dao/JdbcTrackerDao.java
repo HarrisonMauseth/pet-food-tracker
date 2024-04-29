@@ -36,6 +36,16 @@ public class JdbcTrackerDao implements TrackerDao {
     @Override
     public List<Tracker> getEventsByPetId(int petId) {
         List<Tracker> events = new ArrayList<>();
+        String sql = "SELECT t.tracker_id, t.user_id, t.pet_id, t.time_fed, t.food_type, t.portion_amount, t.portion_units, t.notes " +
+                "FROM tracker t WHERE pet_id = ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, petId);
+            while (results.next()) {
+                events.add(mapRowToTracker(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        }
         return events;
     }
 

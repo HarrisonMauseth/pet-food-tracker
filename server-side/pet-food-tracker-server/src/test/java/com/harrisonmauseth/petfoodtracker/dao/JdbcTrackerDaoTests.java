@@ -34,15 +34,32 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
     @Test
     public void getAllEvents_returns_correct_number_of_feeding_events() {
         events = dao.getAllEvents(USERNAME_1);
-        Assert.assertNotNull("getAllEvents() returned null instead of a list", events);
+        Assert.assertNotNull("getAllEvents() returned null instead of a list.", events);
         Assert.assertEquals("getEvents() did not return correct number of feeding events.", 2, events.size());
     }
 
     @Test
     public void getAllEvents_returns_correct_pets_for_specified_user() {
         events = dao.getAllEvents(USERNAME_2);
-        Assert.assertNotNull("getAllEvents() returned null instead of a list", events);
+        Assert.assertNotNull("getAllEvents() returned null instead of a list.", events);
+        Assert.assertFalse("getAllEvents() did not return any events.", events.isEmpty());
+        assertEventsMatch("getAllEvents() did not return correct event:", TRACKER_2, events.get(0));
+    }
 
+    @Test
+    public void getEventsByPetId_returns_correct_number_of_feeding_events() {
+        events = dao.getEventsByPetId(TRACKER_1.getPetId());
+        Assert.assertNotNull("getEventsByPetId() returned null instead of a list.", events);
+        Assert.assertFalse("getEventsByPetId() did not return any events.", events.isEmpty());
+        Assert.assertEquals("getEventsByPetId() did not return correct number of feeding events.", 2, events.size());
+    }
+
+    @Test
+    public void getEventsByPetId_returns_correct_event() {
+        events = dao.getEventsByPetId(TRACKER_3.getPetId());
+        Assert.assertNotNull("getEventsByPetId() returned null instead of a list.", events);
+        Assert.assertFalse("getEventsByPetId() did not return any events.", events.isEmpty());
+        assertEventsMatch("getEventsByPetId() did not return correct event.", TRACKER_3, events.get(0));
     }
 
     private void assertEventsMatch(String methodInvoked, Tracker expected, Tracker actual) {
