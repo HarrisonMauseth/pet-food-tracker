@@ -2,9 +2,11 @@ package com.harrisonmauseth.petfoodtracker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDate;
 
+@JsonPropertyOrder({"id", "name", "short_name", "type", "birthday", "notes"})
 public class Pet {
     @JsonProperty("id")
     private int petId;
@@ -12,7 +14,7 @@ public class Pet {
     private int userId;
     @JsonProperty("name")
     private String petName;
-    @JsonProperty("nickname")
+    @JsonProperty("short_name")
     private String petNickname;
     @JsonProperty("type")
     private String petType;
