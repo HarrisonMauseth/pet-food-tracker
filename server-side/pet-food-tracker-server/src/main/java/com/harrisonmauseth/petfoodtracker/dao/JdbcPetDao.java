@@ -54,12 +54,13 @@ public class JdbcPetDao implements PetDao {
     }
 
     @Override
-    public Pet createPet(Pet pet) {
+    public Pet createPet(Pet pet, String username) {
         Pet createdPet = null;
+        int userId = getUserId(username);
         String sql = "INSERT INTO pet (user_id, pet_name, pet_nickname, pet_type, pet_birthday, notes) " +
                 "VALUES (?, ?, ?, ?, ?, ?) RETURNING pet_id;";
         try {
-            int petId = jdbcTemplate.queryForObject(sql, int.class, pet.getUserId(), pet.getPetName(), pet.getPetNickname(),
+            int petId = jdbcTemplate.queryForObject(sql, int.class, userId, pet.getPetName(), pet.getPetNickname(),
                     pet.getPetType(), pet.getBirthday(), pet.getNotes());
             createdPet = getPetByPetId(petId);
         } catch (CannotGetJdbcConnectionException e) {
