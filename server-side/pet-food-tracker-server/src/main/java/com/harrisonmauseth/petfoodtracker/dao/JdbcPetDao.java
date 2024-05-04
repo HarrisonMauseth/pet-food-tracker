@@ -98,13 +98,14 @@ public class JdbcPetDao implements PetDao {
     }
 
     @Override
-    public int deletePetByPetId(int petId) {
+    public int deletePetByPetId(int petId, String username) {
         int numberOfRowsAffected = 0;
-        String deleteFromPetTrackerSql = "DELETE FROM tracker WHERE pet_id = ?;";
-        String deleteFromPetSql = "DELETE FROM pet WHERE pet_id = ?;";
+        int userId = getUserId(username);
+        String deleteFromPetTrackerSql = "DELETE FROM tracker WHERE pet_id = ? AND user_id = ?;";
+        String deleteFromPetSql = "DELETE FROM pet WHERE pet_id = ? AND user_id = ?;";
         try {
-            jdbcTemplate.update(deleteFromPetTrackerSql, petId);
-            numberOfRowsAffected = jdbcTemplate.update(deleteFromPetSql, petId);
+            jdbcTemplate.update(deleteFromPetTrackerSql, petId, userId);
+            numberOfRowsAffected = jdbcTemplate.update(deleteFromPetSql, petId, userId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to database.");
         } catch (DataIntegrityViolationException e) {

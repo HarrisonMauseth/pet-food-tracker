@@ -43,9 +43,10 @@ public interface PetDao {
     /**
      * Removes a pet from the database.
      *
-     * @param petId the id of the pet to remove
+     * @param petId    the id of the pet to remove
+     * @param username the username of the authenticated user
      * @return the number of pets deleted
      */
-    int deletePetByPetId(int petId);
+    int deletePetByPetId(int petId, String username);
 
 }

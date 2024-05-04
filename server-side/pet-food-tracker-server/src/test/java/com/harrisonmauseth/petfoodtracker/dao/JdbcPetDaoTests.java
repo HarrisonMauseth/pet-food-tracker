@@ -73,7 +73,7 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         Pet petToCreate = new Pet(0, 1, "newPet", "shortNew",
                 "typeNew", LocalDate.of(2000, 4, 4), "notesNew");
 
-        Pet createdPet = dao.createPet(petToCreate);
+        Pet createdPet = dao.createPet(petToCreate, USERNAME_1);
         Assert.assertNotNull("createPet() returned a null pet.", createdPet);
         Assert.assertTrue("createPet did not return a pet with the id set.", createdPet.getPetId() > 0);
 
@@ -97,7 +97,7 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         petToUpdate.setBirthday(LocalDate.of(1900, 12, 12));
         petToUpdate.setNotes("updatedNotes");
 
-        Pet updatedPet = dao.updatePet(petToUpdate, );
+        Pet updatedPet = dao.updatePet(petToUpdate, USERNAME_1);
         Assert.assertNotNull("updatePet() returned a null pet.", updatedPet);
         assertPetsMatch("updatePet() returned an incorrect or incomplete pet:", petToUpdate, updatedPet);
 
@@ -108,7 +108,7 @@ public class JdbcPetDaoTests extends BaseDaoTests {
 
     @Test
     public void deletePetByPetId_deletes_pet() {
-        int rowsAffected = dao.deletePetByPetId(PET_1.getPetId());
+        int rowsAffected = dao.deletePetByPetId(PET_1.getPetId(), USERNAME_1);
         Assert.assertEquals("deletePetByPetId() did not return the correct number of rows deleted.", 1, rowsAffected);
         Pet retreivedPet = dao.getPetByPetId(PET_1.getPetId());
         Assert.assertNull("deletePetByPetId() did not remove the pet from the database.", retreivedPet);
