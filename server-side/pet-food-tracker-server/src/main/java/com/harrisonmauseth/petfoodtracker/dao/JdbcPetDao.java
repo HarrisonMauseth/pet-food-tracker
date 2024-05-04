@@ -25,7 +25,7 @@ public class JdbcPetDao implements PetDao {
         List<Pet> pets = new ArrayList<>();
         int userId = getUserId(username);
         String sql = "SELECT p.pet_id, p.user_id, p.pet_name, p.pet_nickname, p.pet_type, p.pet_birthday, p.notes " +
-                "FROM pet p WHERE user_id = ?;";
+                "FROM pet p WHERE user_id = ? ORDER BY pet_id;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             while (results.next()) {
@@ -72,8 +72,9 @@ public class JdbcPetDao implements PetDao {
     }
 
     @Override
-    public Pet updatePet(Pet pet) {
+    public Pet updatePet(Pet pet, String username) {
         Pet updatedPet = null;
+        pet.setUserId(getUserId(username));
         String sql = "UPDATE pet SET pet_name = ?, pet_nickname = ?, pet_type = ?, pet_birthday = ?, notes = ? " +
                 "WHERE pet_id = ?;";
         try {

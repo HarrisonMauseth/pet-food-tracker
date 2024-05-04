@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -42,9 +44,23 @@ public class PetController {
         try {
             createdPet = petDao.createPet(pet, principal.getName());
         } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Database Error - " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
         }
         return createdPet;
+    }
+
+    @PutMapping(path = "/{id}")
+    public Pet updatePet(@Valid @RequestBody Pet pet, @PathVariable int id, Principal principal) {
+        pet.setPetId(id);
+        try {
+            return petDao.updatePet(pet, principal.getName());
+        } catch (DaoException e) {
+            if (e.getMessage().equals("Zero rows affected, expected at least one.")) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet id " + id + "not found.");
+            } else {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
+            }
+        }
     }
 
 }

@@ -97,7 +97,7 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         petToUpdate.setBirthday(LocalDate.of(1900, 12, 12));
         petToUpdate.setNotes("updatedNotes");
 
-        Pet updatedPet = dao.updatePet(petToUpdate);
+        Pet updatedPet = dao.updatePet(petToUpdate, );
         Assert.assertNotNull("updatePet() returned a null pet.", updatedPet);
         assertPetsMatch("updatePet() returned an incorrect or incomplete pet:", petToUpdate, updatedPet);
 

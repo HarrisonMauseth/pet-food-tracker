@@ -7,7 +7,7 @@ import java.util.List;
 public interface PetDao {
 
     /**
-     * Gets all pets belonging to a specific user.
+     * Gets all pets belonging to a specific user, sorted by pet id.
      *
      * @param username the authenticated user's username
      * @return a list of all pets belonging to the user
@@ -34,10 +34,11 @@ public interface PetDao {
     /**
      * Updates an existing pet in the database.
      *
-     * @param pet the pet object to update
+     * @param pet      the pet object to update
+     * @param username the username of the authenticated user
      * @return the pet object with its updated fields
      */
-    Pet updatePet(Pet pet);
+    Pet updatePet(Pet pet, String username);
 
     /**
      * Removes a pet from the database.
