@@ -25,7 +25,7 @@ public interface PetDao {
     /**
      * Insert a new pet into the database.
      *
-     * @param pet the pet object to create
+     * @param pet      the pet object to create
      * @param username the username of the authenticated user
      * @return the pet object with its new id filled in
      */

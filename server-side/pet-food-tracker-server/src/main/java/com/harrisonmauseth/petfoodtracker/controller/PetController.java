@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -34,6 +35,7 @@ public class PetController {
         return petDao.getPets(principal.getName());
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Pet addPet(@Valid @RequestBody Pet pet, Principal principal) {
         Pet createdPet = null;
