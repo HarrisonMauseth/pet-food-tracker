@@ -1,16 +1,28 @@
 package com.harrisonmauseth.petfoodtracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.sql.Timestamp;
 
+@JsonPropertyOrder({"log_id", "user_id", "pet_id", "time_fed", "food_type", "portion_size", "portion_units", "notes"})
 public class Tracker {
+    @JsonProperty("log_id")
     private int trackerId;
+    @JsonProperty("user_id")
     private int userId;
+    @JsonProperty("pet_id")
     private int petId;
+    @JsonProperty("time_fed")
     private Timestamp timeFed;
+    @JsonProperty("food_type")
     private String foodType;
+    @JsonProperty("portion_size")
     private double portionAmount;
+    @JsonProperty("portion_units")
     private String portionUnits;
     private String notes;
 

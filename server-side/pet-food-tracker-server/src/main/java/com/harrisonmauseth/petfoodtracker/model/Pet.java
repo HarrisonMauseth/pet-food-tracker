@@ -3,21 +3,28 @@ package com.harrisonmauseth.petfoodtracker.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-@JsonPropertyOrder({"id", "name", "short_name", "type", "birthday", "notes"})
+@JsonPropertyOrder({"pet_id", "user_id", "name", "shortened_name", "type", "birthday", "notes"})
 public class Pet {
-    @JsonProperty("id")
+    @JsonProperty("pet_id")
     private int petId;
-    @JsonIgnore
+    @JsonProperty("user_id")
     private int userId;
     @JsonProperty("name")
+    @NotEmpty(message = "Pet must have name")
     private String petName;
-    @JsonProperty("short_name")
+    @JsonProperty("shortened_name")
+    @Size(max = 8, message = "Shortened pet name must be 8 characters or less for small display")
     private String petNickname;
     @JsonProperty("type")
+    @NotEmpty
     private String petType;
+    @Past
     private LocalDate birthday;
     private String notes;
 
