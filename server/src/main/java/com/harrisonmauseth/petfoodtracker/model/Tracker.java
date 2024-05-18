@@ -1,12 +1,9 @@
 package com.harrisonmauseth.petfoodtracker.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @JsonPropertyOrder({"log_id", "user_id", "pet_id", "time_fed", "food_type", "portion_size", "portion_units", "notes"})
 public class Tracker {
@@ -17,7 +14,7 @@ public class Tracker {
     @JsonProperty("pet_id")
     private int petId;
     @JsonProperty("time_fed")
-    private Timestamp timeFed;
+    private LocalDateTime timeFed;
     @JsonProperty("food_type")
     private String foodType;
     @JsonProperty("portion_size")
@@ -29,7 +26,7 @@ public class Tracker {
     public Tracker() {
     }
 
-    public Tracker(int trackerId, int userId, int petId, Timestamp timeFed, String foodType, double portionAmount, String portionUnits, String notes) {
+    public Tracker(int trackerId, int userId, int petId, LocalDateTime timeFed, String foodType, double portionAmount, String portionUnits, String notes) {
         this.trackerId = trackerId;
         this.userId = userId;
         this.petId = petId;
@@ -64,11 +61,11 @@ public class Tracker {
         this.petId = petId;
     }
 
-    public Timestamp getTimeFed() {
+    public LocalDateTime getTimeFed() {
         return timeFed;
     }
 
-    public void setTimeFed(Timestamp timeFed) {
+    public void setTimeFed(LocalDateTime timeFed) {
         this.timeFed = timeFed;
     }
 

@@ -8,17 +8,18 @@ import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcTrackerDaoTests extends BaseDaoTests {
-    private static final Tracker TRACKER_1 = new Tracker(1, 1, 1, Timestamp.valueOf("2000-01-01 01:00:00"),
+    private static final Tracker TRACKER_1 = new Tracker(1, 1, 1, LocalDateTime.parse("2000-01-01T01:00:00"),
             "food1", 1, "unit1", "notes1");
-    private static final Tracker TRACKER_2 = new Tracker(2, 2, 2, Timestamp.valueOf("2000-02-02 02:00:00"),
+    private static final Tracker TRACKER_2 = new Tracker(2, 2, 2, LocalDateTime.parse("2000-02-02T02:00:00"),
             "food2", 2, "unit2", "notes2");
-    private static final Tracker TRACKER_3 = new Tracker(3, 3, 3, Timestamp.valueOf("2000-03-03 03:00:00"),
+    private static final Tracker TRACKER_3 = new Tracker(3, 3, 3, LocalDateTime.parse("2000-03-03T03:00:00"),
             "food3", 3, "unit3", "notes3");
-    private static final Tracker TRACKER_4 = new Tracker(4, 1, 1, Timestamp.valueOf("2000-04-04 04:00:00"),
+    private static final Tracker TRACKER_4 = new Tracker(4, 1, 1, LocalDateTime.parse("2000-04-04T04:00:00"),
             "food1", 1, "unit1", "same food, different time");
     private static final String USERNAME_1 = "user1";
     private static final String USERNAME_2 = "user2";
@@ -72,7 +73,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
 
     @Test
     public void createEvent_creates_event() {
-        Tracker eventToCreate = new Tracker(0, 1, 1, Timestamp.valueOf("2000-05-05 05:00:00"),
+        Tracker eventToCreate = new Tracker(0, 1, 1, LocalDateTime.parse("2000-05-05T05:00:00"),
                 "food1", 1, "unit1", "same food, different time, new event'");
 
         Tracker createdEvent = dao.createNewEvent(eventToCreate);
@@ -90,7 +91,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
 
     @Test
     public void updateEvent_updates_event() {
-        Tracker eventToUpdate = new Tracker(4, 2, 2, Timestamp.valueOf("2000-05-05 05:55:55"),
+        Tracker eventToUpdate = new Tracker(4, 2, 2, LocalDateTime.parse("2000-05-05T05:55:55"),
                 "updatedFood", 2, "updatedUnit", "updated notes");
 
         Tracker updatedEvent = dao.updateEvent(eventToUpdate);

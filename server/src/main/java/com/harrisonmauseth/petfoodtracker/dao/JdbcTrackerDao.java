@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,7 +158,9 @@ public class JdbcTrackerDao implements TrackerDao {
         tracker.setTrackerId(rowSet.getInt("tracker_id"));
         tracker.setUserId(rowSet.getInt("user_id"));
         tracker.setPetId(rowSet.getInt("pet_id"));
-        tracker.setTimeFed(rowSet.getTimestamp("time_fed"));
+        if (rowSet.getTimestamp("time_fed") != null) {
+            tracker.setTimeFed(rowSet.getTimestamp("time_fed").toLocalDateTime());
+        }
         if (rowSet.getString("food_type") != null) {
             tracker.setFoodType(rowSet.getString("food_type"));
         }
