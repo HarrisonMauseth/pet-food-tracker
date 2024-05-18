@@ -1,4 +1,4 @@
-# Dog Food Reminder Overview
+# Pet Food Tracker Overview
 This project stems from living in a house with four dogs who love to lie about how much food they have eaten. Since the dogs often slept in different rooms, there was not really a great system to ensure they all got fed the proper amount.
 
 The solution? Create a display that lives near the dog food with physical buttons and a UI simple enough that a 5 year old can operate it while leaving myself room to iterate on the design as I learn more.
@@ -14,19 +14,21 @@ In order to accomplish this, I needed to do the following:
 ## Key Directories
 While the project is by no means massive, it is worth highlighting a few of the key directories found in this repository:
 
-- `src` - contains the `main.cpp` file where the code for the application lives.
-- `pcb-files` - as the name suggests, this directory is where you can find the files associated with the printed circuit board.
-- `stl-files` - if you are looking to find the files for 3D printing, they stored here. 
+- `arduino-code` - contains the `main.cpp` file where the code for the standalone device lives
+- `pcb-files` - as the name suggests, this directory is where you can find the files associated with the printed circuit board
+- `stl-files` - if you are looking to find the files for 3D printing, they stored here
+- `server` - where the Spring Boot Java server and RESTful API is stored 
 
 ## Roadmap
 I am tackling this project with a three phased approach:
-- Phase One - initial design and implementation (Completed)
-- Phase Two - design a database and server to be accessible via a RESTful API
-- Phase Three - client side GUI
+- Phase One - initial design and implementation of standalone device **(Completed)**
+- Phase Two - design a database and server to be accessible via a RESTful API **(In Progress)**
+- Phase Three - client side web appication using a SPA framework such as Vue.js
+- Phase Four - repurpose the standalone arduino porject to leverage the server-side API
 
-The current state of the project is that I have a functioning piece of hardware in my home that works exactly as initially intended. However, since the start of this project, I have been toying with the idea of integrating a server and a client side GUI
+At this time, phase one is complete and the standalone device mentioned previously works as intended. I am currently working on creating a REST API written in Java that leverages Spring Boot.
 
-## Phase One (Completed) - Initial Design and Implementation
+## Phase One (Completed) - Standalone Device
 This is where the project started. All I wanted was a physical device to sit on my counter to reduce the excessive daily conversations about whether or not the dogs have been fed. This phase of the project accomplished exactly that. 
 
 ### Hardware Required
@@ -70,14 +72,16 @@ As is the case with the PCB, I have designed the case to fit the specific hardwa
 
 All files can be printed without supports. I printed this in a black PLA filament. The base holds the PCB and has cutouts to feed the wires. There is a cover that sits flush with the specific model of momentary switches. The top of the case holds the LCD and the infrared sensor. I have also included some guide holes to allow for threaded inserts. See the hardware list for more information.
 
-## Phase Two - Database Design and Server Side API
-This is the current phase of the project. At the time of writing this, I am wrapping up the client-server programming module of a full-stack software development bootcamp and want to implement what I have been learning into this project. Over the next few weeks, I want to start moving away from the all-in-one physical device that I created in phase one and start moving towards a server/client based application. This can be broken down into a few major steps:
+## Phase Two - Database Design and Server-Side API
+This is the current phase of the project. This can be broken down into the following features
 
 - Create a PostgreSQL database to track timestamps, serving sizes, nutritious facts, etc.
 - Develop a Java application for accessing the data using Spring's JDBC
-- Implement a server-side RESTful API using the Spring Boot framework
-- Build a physical server to host the database
-- Overhaul the application on the physical device to act as a client-side controller
+- Implement a server-side RESTful API using Spring Boot
+- Build a physical server to host the database 
 
-## Phase Three - Client Side GUI
-As the final phase of the project, this is still in a pre-brainstorming state. I will likely be developing a web application using HTML, CSS, and JavaScript to allow for remote access to the database. More information will be made available once Phase Two has completed.
+## Phase Three - Client-Side Web App
+While still in a brainstorming state, I plan to develop a web application using a SPA framework like Vue.js to allow for remote access to the database. More information will be made available once Phase Two has completed.
+
+## Phase Four - Arduino Project Rework
+Once the server is up and running, the plan is to rewrite the code for the physical device so it acts as a physical client. This will allow for anyone in the house to utilize the web application or the physical component without fear of data loss due to power-outages.
