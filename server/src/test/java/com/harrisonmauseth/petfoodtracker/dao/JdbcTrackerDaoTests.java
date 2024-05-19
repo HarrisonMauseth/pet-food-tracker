@@ -1,13 +1,11 @@
 package com.harrisonmauseth.petfoodtracker.dao;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.harrisonmauseth.petfoodtracker.model.Tracker;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
 
     @Test
     public void getEventsByPetId_returns_correct_number_of_feeding_events() {
-        events = dao.getEventsByPetId(TRACKER_1.getPetId());
+        events = dao.getEventsByPetId(TRACKER_1.getPetId(), "user1");
         Assert.assertNotNull("getEventsByPetId() returned null instead of a list.", events);
         Assert.assertFalse("getEventsByPetId() did not return any events.", events.isEmpty());
         Assert.assertEquals("getEventsByPetId() did not return correct number of feeding events.", 2, events.size());
@@ -58,7 +56,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
 
     @Test
     public void getEventsByPetId_returns_correct_event() {
-        events = dao.getEventsByPetId(TRACKER_3.getPetId());
+        events = dao.getEventsByPetId(TRACKER_3.getPetId(), "user3" );
         Assert.assertNotNull("getEventsByPetId() returned null instead of a list.", events);
         Assert.assertFalse("getEventsByPetId() did not return any events.", events.isEmpty());
         assertEventsMatch("getEventsByPetId() did not return correct event.", TRACKER_3, events.get(0));

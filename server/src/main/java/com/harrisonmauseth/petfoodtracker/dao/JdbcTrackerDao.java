@@ -8,8 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,12 +37,13 @@ public class JdbcTrackerDao implements TrackerDao {
     }
 
     @Override
-    public List<Tracker> getEventsByPetId(int petId) {
+    public List<Tracker> getEventsByPetId(int petId, String username) {
         List<Tracker> events = new ArrayList<>();
+        int userId = getUserId(username);
         String sql = "SELECT t.tracker_id, t.user_id, t.pet_id, t.time_fed, t.food_type, t.portion_amount, t.portion_units, t.notes " +
-                "FROM tracker t WHERE pet_id = ? ORDER BY t.time_fed DESC;";
+                "FROM tracker t WHERE pet_id = ? AND user_id = ? ORDER BY t.time_fed DESC;";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, petId);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, petId, userId);
             while (results.next()) {
                 events.add(mapRowToTracker(results));
             }

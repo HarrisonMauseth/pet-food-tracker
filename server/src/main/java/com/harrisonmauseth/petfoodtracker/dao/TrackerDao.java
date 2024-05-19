@@ -15,12 +15,13 @@ public interface TrackerDao {
     List<Tracker> getAllEvents(String username);
 
     /**
-     * Get all the pet feeding events for a specific pet, ordered chronologically, descending.
+     * Get all the pet feeding events for a specific user's specific pet, ordered chronologically, descending.
      *
-     * @param petId the id of the pet whose feeding events you wish to get
+     * @param petId    the id of the pet whose feeding events you wish to get
+     * @param username username of the user attempting to access the information
      * @return a list of feeding events for a specific pet
      */
-    List<Tracker> getEventsByPetId(int petId);
+    List<Tracker> getEventsByPetId(int petId, String username);
 
     /**
      * Get a specific tracker event.

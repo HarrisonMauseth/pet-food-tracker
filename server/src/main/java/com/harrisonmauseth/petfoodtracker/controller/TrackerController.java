@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -44,10 +43,10 @@ public class TrackerController {
     }
 
     @GetMapping(path = "/{id}")
-    public List<Tracker> getLogsByPetId(@PathVariable int id) {
+    public List<Tracker> getLogsByPetId(@PathVariable int id, Principal principal) {
         List<Tracker> logs;
         try {
-            logs = trackerDao.getEventsByPetId(id);
+            logs = trackerDao.getEventsByPetId(id, principal.getName());
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
         }
