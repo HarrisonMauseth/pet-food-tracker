@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -74,6 +75,20 @@ public class TrackerController {
             return createdLog;
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to log feeding event.");
+        }
+    }
+
+    @PutMapping(path = "/{id}")
+    public Tracker updateLog(@Valid @RequestBody Tracker trackerToUpdate, @PathVariable int id, Principal principal) {
+        trackerToUpdate.setTrackerId(id);
+        try {
+            return trackerDao.updateEvent(trackerToUpdate, principal.getName());
+        } catch (DaoException e) {
+            if (e.getMessage().equals("Zero rows affected, expected at least one.")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tracker id " + id + " not found.");
+            } else {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
+            }
         }
     }
 }
