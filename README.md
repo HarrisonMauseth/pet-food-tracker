@@ -22,8 +22,8 @@ While the project is by no means massive, it is worth highlighting a few of the 
 ## Roadmap
 I am tackling this project with a three phased approach:
 - Phase One - initial design and implementation of standalone device **(Completed)**
-- Phase Two - design a database and server to be accessible via a RESTful API **(In Progress)**
-- Phase Three - client side web appication using a SPA framework such as Vue.js
+- Phase Two - design a database and server to be accessible via a RESTful API **(Completed)**
+- Phase Three - client side web appication using a SPA framework such as Vue.js **(In Prorgress)**
 - Phase Four - repurpose the standalone arduino porject to leverage the server-side API
 
 At this time, phase one is complete and the standalone device mentioned previously works as intended. I am currently working on creating a REST API written in Java that leverages Spring Boot.
@@ -72,16 +72,79 @@ As is the case with the PCB, I have designed the case to fit the specific hardwa
 
 All files can be printed without supports. I printed this in a black PLA filament. The base holds the PCB and has cutouts to feed the wires. There is a cover that sits flush with the specific model of momentary switches. The top of the case holds the LCD and the infrared sensor. I have also included some guide holes to allow for threaded inserts. See the hardware list for more information.
 
-## Phase Two - Database Design and Server-Side API
-This is the current phase of the project. This can be broken down into the following features
+## Phase Two (Completed) - Database Design and Server-Side API
+This phase is effectively everything server-side. This can be broken down intot he following features:
 
-- Create a PostgreSQL database to track timestamps, serving sizes, nutritious facts, etc.
-- Develop a Java application for accessing the data using Spring's JDBC
-- Implement a server-side RESTful API using Spring Boot
-- Build a physical server to host the database 
+- Created a PostgreSQL database to track timestamps, serving sizes, nutritious facts, etc.
+- Developed a Java application for accessing the data using Spring's JDBC
+- Implemented a server-side RESTful API using Spring Boot
+- Included authentication for multiple users using Spring Security and JWTs
 
 ## Phase Three - Client-Side Web App
-While still in a brainstorming state, I plan to develop a web application using a SPA framework like Vue.js to allow for remote access to the database. More information will be made available once Phase Two has completed.
+This is the current phase of the project. The plan is to develop a web application using a SPA framework (Vue.js) to allow for remote access to the database.
+
+### User Stories
+In this section, we will define two types of users:
+- Anonymous user: a user who has not yet logged in to the application
+- Authenticated user: a user who has registered an account and is logged in to the application
+
+#### Registration and Login
+- As an anonymous user, I am greeted with a login page
+    - Upon logging in, I am redirected to the pet dashboard (home page)
+- As an anonymous user, I can register a new account
+    - Clicking the "register accoount" button takes me to the register view
+- As an authenticated user, I can click "Logout" to log out of the application
+    - After logging out, the system redirects me to the login page
+
+#### Dashboard
+The home dashboard can only be seen by an authenticated user. Assume that each of the stories listed below begins with "as an authenticated user".
+
+- I can acces this page using the route `/home`
+- I am presented with all of my pets (if any)
+    - If I have no pets, I am simply given the option to add a pet
+    - If I do have pets, the first option should be "feed all"
+    - Each pet should have the option to feed only that pet
+- I can click the button to create a new pet
+    - Clicking on "add pet" will redirect to the pet creation view
+- Each pet should have a dynamic timer showing how long it has been since they have been fed
+    - For example, a display like "now eating" or "last fed 35 minutes ago" should exist. 
+    - If a pet has not been fed within 10-12 hours, the style of the card should change to reflect this
+    - If a pet has not been fed within 12 hours, the style of the card should change to reflect the urgency
+
+#### Pet Details Page
+The pet details page can only be seen by an authenticated user. Assume that each of the stories listed below begins with "as an authenticated user".
+
+- I can access this page using the route `/pets/{id}` where `id` is the pet id (for example, `pets/1`)
+- I can see a full list of details about the pet
+    - Any detail that is null in the database should not be rendered
+- I have the option to remove the pet
+    - Clicking the remove pet button requires a secondary confirmation
+    - A message should dispaly to me that verifies that this operation was completed/failed
+
+#### Add Pet Page
+The add pet page can only be seen by an authenticated user. Assume that each of the stories listed below begins with "as an authenticated user".
+
+- I can access this page using the route `/pets/add`
+- Any field that is required is clearly denoted
+- Upon creating, a message should dispaly to me that verifies that this operation was completed/failed
+
+#### Log Overview Page
+The log overview page can only be seen by an authenticated user. Assume that each of the stories listed below begins with "as an authenticated user".
+
+- I can access this page using the route `/logs`
+- I can view all logs for all pets
+- Each log should show a brief overview (edit, pet name, time fed, remove)
+- I can click on a specific log to see the details of the log
+- Each log should have the option to remove
+    - Clicking the remove pet button requires a secondary confirmation
+    - A message should dispaly to me that verifies that this operation was completed/failed
+- Each log should have the option to edit
+    - Clicking the edit button should display a modal with the edit form
+
+#### Log Details Page
+The log details page can only be seen by an authenticated user. Assume that each of the stories listed below begins with "as an authenticated user".
+
+- I can acces this page using the route `/logs/{id}` where the `id` is the log id (for example, `logs/1`)
 
 ## Phase Four - Arduino Project Rework
-Once the server is up and running, the plan is to rewrite the code for the physical device so it acts as a physical client. This will allow for anyone in the house to utilize the web application or the physical component without fear of data loss due to power-outages.
+Once the server and client are up and running, the plan is to rewrite the code for the physical device so it acts as a physical client. This will allow for anyone in the house to utilize the web application or the physical component without fear of data loss due to power-outages.
