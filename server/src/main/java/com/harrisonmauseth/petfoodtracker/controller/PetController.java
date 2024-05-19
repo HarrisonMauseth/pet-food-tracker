@@ -57,7 +57,7 @@ public class PetController {
             return petDao.updatePet(pet, principal.getName());
         } catch (DaoException e) {
             if (e.getMessage().equals("Zero rows affected, expected at least one.")) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet id " + id + "not found.");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet (pet_id: " + id + ") not found.");
             } else {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
             }
@@ -67,7 +67,14 @@ public class PetController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{id}")
     public void deletePet(@PathVariable int id, Principal principal) {
-        petDao.deletePetByPetId(id, principal.getName());
+        try {
+            int rowsDeleted = petDao.deletePetByPetId(id, principal.getName());
+            if (rowsDeleted == 0) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pet (pet_id: " + id + ") not found.");
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
+        }
     }
 
 }
