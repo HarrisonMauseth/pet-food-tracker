@@ -70,15 +70,16 @@ public class JdbcTrackerDao implements TrackerDao {
     }
 
     @Override
-    public Tracker createNewEvent(Tracker eventToCreate) {
-        Tracker loggedEvent = null;
+    public Tracker createNewEvent(Tracker eventToCreate, String username) {
+        Tracker loggedEvent;
+        int userId = getUserId(username);
         String sql = "INSERT INTO tracker (user_id, pet_id, time_fed, food_type, portion_amount, portion_units, notes) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING tracker_id;";
         try {
             int trackerId = jdbcTemplate.queryForObject(
                     sql,
                     int.class,
-                    eventToCreate.getUserId(),
+                    userId,
                     eventToCreate.getPetId(),
                     eventToCreate.getTimeFed(),
                     eventToCreate.getFoodType(),
@@ -96,22 +97,24 @@ public class JdbcTrackerDao implements TrackerDao {
     }
 
     @Override
-    public Tracker updateEvent(Tracker eventToUpdate) {
-        Tracker updatedEvent = null;
+    public Tracker updateEvent(Tracker eventToUpdate, String username) {
+        Tracker updatedEvent;
+        int userId = getUserId(username);
         String sql = "UPDATE tracker SET user_id = ?, pet_id = ?, time_fed = ?, food_type = ?, portion_amount = ?, " +
                 "portion_units = ?, notes = ? " +
-                "WHERE tracker_id = ?;";
+                "WHERE tracker_id = ? AND user_id = ?;";
         try {
             int numberOfRowsAffected = jdbcTemplate.update(
                     sql,
-                    eventToUpdate.getUserId(),
+                    userId,
                     eventToUpdate.getPetId(),
                     eventToUpdate.getTimeFed(),
                     eventToUpdate.getFoodType(),
                     eventToUpdate.getPortionAmount(),
                     eventToUpdate.getPortionUnits(),
                     eventToUpdate.getNotes(),
-                    eventToUpdate.getTrackerId()
+                    eventToUpdate.getTrackerId(),
+                    userId
             );
             if (numberOfRowsAffected == 0) {
                 throw new DaoException("Zero rows affected, expected at least one.");
@@ -125,11 +128,12 @@ public class JdbcTrackerDao implements TrackerDao {
     }
 
     @Override
-    public int deleteEvent(int trackerId) {
-        int numberOfRowsDeleted = 0;
-        String sql = "DELETE FROM tracker WHERE tracker_id = ?;";
+    public int deleteEvent(int trackerId, String username) {
+        int numberOfRowsDeleted;
+        int userId = getUserId(username);
+        String sql = "DELETE FROM tracker WHERE tracker_id = ? AND user_id = ?;";
         try {
-            numberOfRowsDeleted = jdbcTemplate.update(sql, trackerId);
+            numberOfRowsDeleted = jdbcTemplate.update(sql, trackerId, userId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to database.");
         } catch (DataIntegrityViolationException e) {

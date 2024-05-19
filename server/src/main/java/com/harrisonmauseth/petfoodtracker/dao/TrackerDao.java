@@ -32,27 +32,30 @@ public interface TrackerDao {
     Tracker getEventByTrackerId(int trackerId);
 
     /**
-     * Log a pet feeding event in the database.
+     * Log a user's pet feeding event in the database.
      *
      * @param eventToCreate the event to add to the database
+     * @param username      the username of the user wishing to log an event
      * @return the feeding event data
      */
-    Tracker createNewEvent(Tracker eventToCreate);
+    Tracker createNewEvent(Tracker eventToCreate, String username);
 
     /**
-     * Update a pet feeding event in the database.
+     * Update a user's pet feeding event in the database.
      *
      * @param eventToUpdate the event to update in the database
+     * @param username      the username of the user wishing to update an event
      * @return the updated feeding event data
      */
-    Tracker updateEvent(Tracker eventToUpdate);
+    Tracker updateEvent(Tracker eventToUpdate, String username);
 
     /**
-     * Delete a pet feeding event from the database.
+     * Delete a user's pet feeding event from the database.
      *
      * @param trackerId the id of the event you wish to delete
+     * @param username  the username of the user wishing to delete an event
      * @return the number of events deleted
      */
-    int deleteEvent(int trackerId);
+    int deleteEvent(int trackerId, String username);
 
 }

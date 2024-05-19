@@ -56,7 +56,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
 
     @Test
     public void getEventsByPetId_returns_correct_event() {
-        events = dao.getEventsByPetId(TRACKER_3.getPetId(), "user3" );
+        events = dao.getEventsByPetId(TRACKER_3.getPetId(), "user3");
         Assert.assertNotNull("getEventsByPetId() returned null instead of a list.", events);
         Assert.assertFalse("getEventsByPetId() did not return any events.", events.isEmpty());
         assertEventsMatch("getEventsByPetId() did not return correct event.", TRACKER_3, events.get(0));
@@ -74,7 +74,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
         Tracker eventToCreate = new Tracker(0, 1, 1, LocalDateTime.parse("2000-05-05T05:00:00"),
                 "food1", 1, "unit1", "same food, different time, new event'");
 
-        Tracker createdEvent = dao.createNewEvent(eventToCreate);
+        Tracker createdEvent = dao.createNewEvent(eventToCreate, "user1");
         Assert.assertNotNull("createNewEvent() returned a null event.", createdEvent);
         Assert.assertTrue("createNewEvent() did not return a pet with the id set.", createdEvent.getPetId() > 0);
 
@@ -89,10 +89,10 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
 
     @Test
     public void updateEvent_updates_event() {
-        Tracker eventToUpdate = new Tracker(4, 2, 2, LocalDateTime.parse("2000-05-05T05:55:55"),
+        Tracker eventToUpdate = new Tracker(4, 1, 2, LocalDateTime.parse("2000-05-05T05:55:55"),
                 "updatedFood", 2, "updatedUnit", "updated notes");
 
-        Tracker updatedEvent = dao.updateEvent(eventToUpdate);
+        Tracker updatedEvent = dao.updateEvent(eventToUpdate, "user1");
         Assert.assertNotNull("updateEvent() returned a null event.", updatedEvent);
         assertEventsMatch("updateEvent() returned an incorrect or incomplete event:", eventToUpdate, updatedEvent);
 
@@ -103,7 +103,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
 
     @Test
     public void deleteEvent_deletes_event() {
-        int rowsDeleted = dao.deleteEvent(TRACKER_4.getTrackerId());
+        int rowsDeleted = dao.deleteEvent(TRACKER_4.getTrackerId(), "user1");
         Assert.assertEquals("deleteEvent() did not delete the correct number of rows.", 1, rowsDeleted);
         Tracker retrievedEvent = dao.getEventByTrackerId(TRACKER_4.getTrackerId());
         Assert.assertNull("deleteEvent() did not remove the event from the database.", retrievedEvent);
