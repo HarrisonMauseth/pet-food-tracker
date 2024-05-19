@@ -3,12 +3,16 @@ package com.harrisonmauseth.petfoodtracker.controller;
 import com.harrisonmauseth.petfoodtracker.dao.TrackerDao;
 import com.harrisonmauseth.petfoodtracker.exception.DaoException;
 import com.harrisonmauseth.petfoodtracker.model.Tracker;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -42,7 +46,7 @@ public class TrackerController {
         }
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/pet/{id}")
     public List<Tracker> getLogsByPetId(@PathVariable int id, Principal principal) {
         List<Tracker> logs;
         try {
@@ -57,4 +61,19 @@ public class TrackerController {
         }
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping()
+    public Tracker log(@Valid @RequestBody Tracker trackerToCreate, Principal principal) {
+        Tracker createdLog;
+        try {
+            createdLog = trackerDao.createNewEvent(trackerToCreate, principal.getName());
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
+        }
+        if (createdLog != null) {
+            return createdLog;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to log feeding event.");
+        }
+    }
 }

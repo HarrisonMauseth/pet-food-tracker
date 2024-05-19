@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,9 @@ public class JdbcTrackerDao implements TrackerDao {
     public Tracker createNewEvent(Tracker eventToCreate, String username) {
         Tracker loggedEvent;
         int userId = getUserId(username);
+        if (eventToCreate.getTimeFed() == null) {
+            eventToCreate.setTimeFed(LocalDateTime.now());
+        }
         String sql = "INSERT INTO tracker (user_id, pet_id, time_fed, food_type, portion_amount, portion_units, notes) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING tracker_id;";
         try {

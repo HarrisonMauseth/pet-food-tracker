@@ -2,6 +2,7 @@ package com.harrisonmauseth.petfoodtracker.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.Past;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ public class Tracker {
     private int userId;
     @JsonProperty("pet_id")
     private int petId;
+    @Past(message = "cannot log future events")
     @JsonProperty("time_fed")
     private LocalDateTime timeFed;
     @JsonProperty("food_type")
