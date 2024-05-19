@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,10 +86,23 @@ public class TrackerController {
             return trackerDao.updateEvent(trackerToUpdate, principal.getName());
         } catch (DaoException e) {
             if (e.getMessage().equals("Zero rows affected, expected at least one.")) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tracker id " + id + " not found.");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event (log_id: " + id + ") not found.");
             } else {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
             }
+        }
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "/{id}")
+    public void deleteLog(@PathVariable int id, Principal principal) {
+        try {
+            int rowsAffected = trackerDao.deleteEvent(id, principal.getName());
+            if (rowsAffected == 0) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event (log_id: " + id + ") not found.");
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
         }
     }
 }
