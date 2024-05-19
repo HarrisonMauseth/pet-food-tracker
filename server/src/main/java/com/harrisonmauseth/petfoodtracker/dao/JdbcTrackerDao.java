@@ -26,7 +26,7 @@ public class JdbcTrackerDao implements TrackerDao {
         List<Tracker> events = new ArrayList<>();
         int userId = getUserId(username);
         String sql = "SELECT t.tracker_id, t.user_id, t.pet_id, t.time_fed, t.food_type, t.portion_amount, t.portion_units, t.notes " +
-                "FROM tracker t WHERE user_id = ?;";
+                "FROM tracker t WHERE user_id = ? ORDER BY t.time_fed DESC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             while (results.next()) {
@@ -42,7 +42,7 @@ public class JdbcTrackerDao implements TrackerDao {
     public List<Tracker> getEventsByPetId(int petId) {
         List<Tracker> events = new ArrayList<>();
         String sql = "SELECT t.tracker_id, t.user_id, t.pet_id, t.time_fed, t.food_type, t.portion_amount, t.portion_units, t.notes " +
-                "FROM tracker t WHERE pet_id = ?;";
+                "FROM tracker t WHERE pet_id = ? ORDER BY t.time_fed DESC;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, petId);
             while (results.next()) {

@@ -30,7 +30,7 @@ public class TrackerController {
 
     @GetMapping
     public List<Tracker> getAllLogs(Principal principal) {
-        List<Tracker> logs = new ArrayList<>();
+        List<Tracker> logs;
         try {
             logs = trackerDao.getAllEvents(principal.getName());
         } catch (DaoException e) {
@@ -45,10 +45,16 @@ public class TrackerController {
 
     @GetMapping(path = "/{id}")
     public List<Tracker> getLogsByPetId(@PathVariable int id) {
+        List<Tracker> logs;
         try {
-            return trackerDao.getEventsByPetId(id);
+            logs = trackerDao.getEventsByPetId(id);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
+        }
+        if (!logs.isEmpty()) {
+            return logs;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No events found (pet_id: " + id + ")");
         }
     }
 

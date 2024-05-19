@@ -7,7 +7,7 @@ import java.util.List;
 public interface TrackerDao {
 
     /**
-     * Get all the pet feeding events for all of a given user's pets.
+     * Get all the pet feeding events for all of a given user's pets, ordered chronologically, descending.
      *
      * @param username the authenticated user's username
      * @return a list of all feeding events for all the user's pets
@@ -15,7 +15,7 @@ public interface TrackerDao {
     List<Tracker> getAllEvents(String username);
 
     /**
-     * Get all the pet feeding events for a specific pet.
+     * Get all the pet feeding events for a specific pet, ordered chronologically, descending.
      *
      * @param petId the id of the pet whose feeding events you wish to get
      * @return a list of feeding events for a specific pet
