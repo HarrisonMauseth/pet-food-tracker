@@ -11,6 +11,7 @@
           v-model="user.username"
           required
           autofocus
+          autocomplete="off"
         />
         <label for="password">Password</label>
         <input
@@ -19,6 +20,7 @@
           placeholder="Password"
           v-model="user.password"
           required
+          autocomplete="off"
         />
         <div id="submit"><button type="submit">Sign in</button></div>
       </div>

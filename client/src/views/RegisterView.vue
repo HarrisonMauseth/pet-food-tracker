@@ -11,6 +11,7 @@
           v-model="user.username"
           required
           autofocus
+          autocomplete="off"
         />
         <label for="password">Password</label>
         <input
@@ -19,6 +20,7 @@
           placeholder="Password"
           v-model="user.password"
           required
+          autocomplete="off"
         />
         <label for="confirmPassword">Confirm Password</label>
         <input
@@ -27,6 +29,7 @@
           placeholder="Confirm Password"
           v-model="user.confirmPassword"
           required
+          autocomplete="off"
         />
         <div></div>
         <div id="create">
