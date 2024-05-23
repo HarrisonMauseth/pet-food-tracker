@@ -9,7 +9,7 @@ import axios from 'axios'
 /* import fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCartPlus, faTrashCan, faXmark, faMagnifyingGlass, faRotate, faTable, faGrip, faHeart, faPaw, faDoorOpen, faHouseChimney } 
+import { faCartPlus, faTrashCan, faXmark, faMagnifyingGlass, faRotate, faTable, faGrip, faHeart, faPaw, faDoorOpen, faHouseChimney, faPencil } 
   from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
@@ -24,6 +24,7 @@ library.add(faHeart);
 library.add(faPaw);
 library.add(faDoorOpen);
 library.add(faHouseChimney);
+library.add(faPencil);
 
 /* sets the base url for server API communication with axios */
 axios.defaults.baseURL = import.meta.env.VITE_REMOTE_API;

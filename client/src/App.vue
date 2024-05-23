@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav v-if="$store.state.token">
-      <span id="home">
+      <span id="home" @click="navigateToDashboard">
         <font-awesome-icon :icon="['fas', 'fa-house-chimney']" title="Home" class="icon" />
         Home
       </span>
@@ -9,8 +9,8 @@
         <font-awesome-icon icon="fa-solid fa-paw" title="Pets" class="icon" />
         Pets
       </span>
-      <span id="logout">
-        <font-awesome-icon icon="fa-solid fa-door-open" title="Logout" class="icon" @click="logout" />
+      <span id="logout" @click="logout">
+        <font-awesome-icon icon="fa-solid fa-door-open" title="Logout" class="icon"  />
         Logout
       </span>
     </nav>
@@ -23,6 +23,9 @@ export default {
   methods: {
     logout() {
       this.$router.push({ name: "logout" })
+    },
+    navigateToDashboard() {
+      this.$router.push({ name: "dashboard"})
     }
   }
 }
@@ -44,7 +47,13 @@ span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* flex-basis: 30%; */
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+span:hover {
+  color: forestgreen;
+  text-decoration: underline;
 }
 
 @media (max-width: 1024px) {
