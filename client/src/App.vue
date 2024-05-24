@@ -1,16 +1,16 @@
 <template>
   <header>
     <nav v-if="$store.state.token">
-      <span id="home" @click="navigateToDashboard">
-        <font-awesome-icon :icon="['fas', 'fa-house-chimney']" title="Home" class="icon" />
+      <span id="home" @click="navigateToDashboard" title="Home">
+        <font-awesome-icon :icon="['fas', 'fa-house-chimney']" class="icon" />
         Home
       </span>
-      <span id="pets">
-        <font-awesome-icon icon="fa-solid fa-paw" title="Pets" class="icon" />
+      <span id="pets" title="Pets">
+        <font-awesome-icon icon="fa-solid fa-paw" class="icon" />
         Pets
       </span>
-      <span id="logout" @click="logout">
-        <font-awesome-icon icon="fa-solid fa-door-open" title="Logout" class="icon"  />
+      <span id="logout" @click="logout" title="Logout">
+        <font-awesome-icon icon="fa-solid fa-door-open" class="icon" />
         Logout
       </span>
     </nav>
@@ -22,10 +22,10 @@
 export default {
   methods: {
     logout() {
-      this.$router.push({ name: "logout" })
+      this.$router.push({ name: 'logout' })
     },
     navigateToDashboard() {
-      this.$router.push({ name: "dashboard"})
+      this.$router.push({ name: 'dashboard' })
     }
   }
 }

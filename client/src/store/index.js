@@ -8,6 +8,7 @@ export function createStore(currentToken, currentUser) {
         user: currentUser || {},
         message: "something",
         isLoading: false,
+        pets: [],
       },
       mutations: {
         SET_AUTH_TOKEN(state, token) {
@@ -38,6 +39,12 @@ export function createStore(currentToken, currentUser) {
         IS_LOADED(state) {
           state.isLoading = false;
         },
+        LOAD_PETS(state, pets) {
+          state.pets = pets;
+        },
+        CLEAR_PETS(state) {
+          state.pets = [];
+        }
       },
     });
     return store;

@@ -1,13 +1,13 @@
 <template>
   <div class="pet-card">
-    <img src="../../public/img/bucky.jpg" />
+    <img src="/img/bucky.jpg" />
     <section class="info">
-      <h2 class="name">Bucky</h2>
+      <h2 class="name">{{name}}</h2>
       <p>Last fed: 2 hours ago</p>
     </section>
 
-    <button id="feed">Feed</button>
-    <font-awesome-icon icon="fa-solid fa-pencil" class="icon" />
+    <button id="feed" title="Feed">Feed Now</button>
+    <font-awesome-icon icon="fa-solid fa-pencil" class="icon" title="Edit" />
   </div>
 </template>
 
@@ -27,17 +27,21 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 20px 0;
 }
-
 .pet-card > img {
   width: 75px;
   height: 75px;
   object-fit: cover;
   border-radius: 50%;
   margin-left: 20px;
+  cursor: pointer;
 }
 .info {
   flex-basis: 20%;
+}
+.info p {
+  font-style: italic;
 }
 #feed {
   flex-basis: 40%;
@@ -54,5 +58,9 @@ export default {
 }
 .icon {
   margin-right: 20px;
+  transition: 0.8s;
+}
+.icon:hover {
+  color: forestgreen;
 }
 </style>
