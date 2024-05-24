@@ -24,7 +24,7 @@ public class JdbcPetDao implements PetDao {
     public List<Pet> getPets(String username) {
         List<Pet> pets = new ArrayList<>();
         int userId = getUserId(username);
-        String sql = "SELECT p.pet_id, p.user_id, p.pet_name, p.pet_nickname, p.pet_type, p.pet_birthday, p.notes " +
+        String sql = "SELECT p.pet_id, p.user_id, p.pet_name, p.pet_nickname, p.pet_type, p.pet_birthday, p.image_path, p.notes " +
                 "FROM pet p WHERE user_id = ? ORDER BY pet_id;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
@@ -40,7 +40,7 @@ public class JdbcPetDao implements PetDao {
     @Override
     public Pet getPetByPetId(int petId) {
         Pet pet = null;
-        String sql = "SELECT p.pet_id, p.user_id, p.pet_name, p.pet_nickname, p.pet_type, p.pet_birthday, p.notes " +
+        String sql = "SELECT p.pet_id, p.user_id, p.pet_name, p.pet_nickname, p.pet_type, p.pet_birthday, p.image_path, p.notes " +
                 "FROM pet p WHERE pet_id = ?;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, petId);
@@ -57,11 +57,11 @@ public class JdbcPetDao implements PetDao {
     public Pet createPet(Pet pet, String username) {
         Pet createdPet = null;
         int userId = getUserId(username);
-        String sql = "INSERT INTO pet (user_id, pet_name, pet_nickname, pet_type, pet_birthday, notes) " +
-                "VALUES (?, ?, ?, ?, ?, ?) RETURNING pet_id;";
+        String sql = "INSERT INTO pet (user_id, pet_name, pet_nickname, pet_type, pet_birthday, image_path, notes) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING pet_id;";
         try {
             int petId = jdbcTemplate.queryForObject(sql, int.class, userId, pet.getPetName(), pet.getPetNickname(),
-                    pet.getPetType(), pet.getBirthday(), pet.getNotes());
+                    pet.getPetType(), pet.getBirthday(), pet.getImagePath(), pet.getNotes());
             createdPet = getPetByPetId(petId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to database.");
@@ -75,7 +75,7 @@ public class JdbcPetDao implements PetDao {
     public Pet updatePet(Pet pet, String username) {
         Pet updatedPet = null;
         pet.setUserId(getUserId(username));
-        String sql = "UPDATE pet SET pet_name = ?, pet_nickname = ?, pet_type = ?, pet_birthday = ?, notes = ? " +
+        String sql = "UPDATE pet SET pet_name = ?, pet_nickname = ?, pet_type = ?, pet_birthday = ?, image_path = ?, notes = ? " +
                 "WHERE pet_id = ?;";
         try {
             int numberOfRowsAffected = jdbcTemplate.update(
@@ -83,6 +83,7 @@ public class JdbcPetDao implements PetDao {
                     pet.getPetNickname(),
                     pet.getPetType(),
                     pet.getBirthday(),
+                    pet.getImagePath(),
                     pet.getNotes(),
                     pet.getPetId()
             );
@@ -139,6 +140,9 @@ public class JdbcPetDao implements PetDao {
         pet.setPetType(rowSet.getString("pet_type"));
         if (rowSet.getDate("pet_birthday") != null) {
             pet.setBirthday(rowSet.getDate("pet_birthday").toLocalDate());
+        }
+        if (rowSet.getString("image_path") != null) {
+            pet.setImagePath(rowSet.getString("image_path"));
         }
         if (rowSet.getString("notes") != null) {
             pet.setNotes(rowSet.getString("notes"));

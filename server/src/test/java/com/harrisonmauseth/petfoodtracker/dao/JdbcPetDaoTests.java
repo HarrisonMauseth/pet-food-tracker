@@ -13,11 +13,11 @@ import java.util.List;
 public class JdbcPetDaoTests extends BaseDaoTests {
 
     private static final Pet PET_1 = new Pet(1, 1, "name1", "short1",
-            "type1", LocalDate.of(2000, 1, 1), "notes1");
+            "type1", LocalDate.of(2000, 1, 1), "image1", "notes1");
     private static final Pet PET_2 = new Pet(2, 2, "name2", "short2",
-            "type2", LocalDate.of(2000, 2, 2), "notes2");
+            "type2", LocalDate.of(2000, 2, 2), "image2", "notes2");
     private static final Pet PET_3 = new Pet(3, 3, "name3", "short3",
-            "type3", LocalDate.of(2000, 3, 3), "notes3");
+            "type3", LocalDate.of(2000, 3, 3), "image3", "notes3");
     private static final String USERNAME_1 = "user1";
     private static final String USERNAME_2 = "user2";
     private static final String USERNAME_3 = "user3";
@@ -71,7 +71,7 @@ public class JdbcPetDaoTests extends BaseDaoTests {
     @Test
     public void createPet_creates_pet() {
         Pet petToCreate = new Pet(0, 1, "newPet", "shortNew",
-                "typeNew", LocalDate.of(2000, 4, 4), "notesNew");
+                "typeNew", LocalDate.of(2000, 4, 4), "imageNew", "notesNew");
 
         Pet createdPet = dao.createPet(petToCreate, USERNAME_1);
         Assert.assertNotNull("createPet() returned a null pet.", createdPet);
@@ -121,6 +121,7 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         Assert.assertEquals(methodInvoked + " petNicknames do not match", expected.getPetNickname(), actual.getPetNickname());
         Assert.assertEquals(methodInvoked + " petTypes do not match.", expected.getPetType(), actual.getPetType());
         Assert.assertEquals(methodInvoked + " birthdays do not match", expected.getBirthday(), actual.getBirthday());
+        Assert.assertEquals(methodInvoked + " image paths do not match", expected.getImagePath(), actual.getImagePath());
         Assert.assertEquals(methodInvoked + " notes do not match", expected.getNotes(), actual.getNotes());
     }
 

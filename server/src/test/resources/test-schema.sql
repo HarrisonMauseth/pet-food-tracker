@@ -18,6 +18,7 @@ CREATE TABLE pet (
     pet_type varchar(20) NOT NULL,
     pet_birthday date NULL,
     notes text NULL,
+    image_path varchar(255) NULL,
     CONSTRAINT PK_pet PRIMARY KEY (pet_id),
     CONSTRAINT FK_pet_users FOREIGN KEY (user_id) REFERENCES users
 );
