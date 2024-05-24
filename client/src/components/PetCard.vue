@@ -1,8 +1,8 @@
 <template>
   <div class="pet-card">
-    <img src="/img/bucky.jpg" />
+    <img :src="imagePath" @error="getDefaultImage" />
     <section class="info">
-      <h2 class="name">{{name}}</h2>
+      <h2 class="name">{{ name }}</h2>
       <p>Last fed: 2 hours ago</p>
     </section>
 
@@ -13,7 +13,24 @@
 
 <script>
 export default {
-  props: ['id', 'name']
+  data() {
+    return {
+      imagePath: ''
+    }
+  },
+  props: ['id', 'name', 'image'],
+  methods: {
+    getImage() {
+      let path = '../public/img/' + this.image
+      this.imagePath = path
+    },
+    getDefaultImage() {
+      this.imagePath = '../public/img/default.png'
+    }
+  },
+  created() {
+    this.getImage()
+  }
 }
 </script>
 

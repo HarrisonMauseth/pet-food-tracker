@@ -1,5 +1,11 @@
 <template>
-  <pet-card v-for="pet in filteredPets" :key="pet.pet_id" :id="pet.pet_id" :name="pet.name" />
+  <pet-card
+    v-for="pet in filteredPets"
+    :key="pet.pet_id"
+    :id="pet.pet_id"
+    :name="pet.name"
+    :image="pet.image_path"
+  />
 </template>
 
 <script>
@@ -13,7 +19,7 @@ export default {
     loadPets() {
       this.$store.commit('LOADING')
       if (this.$store.state.pets.length != 0) {
-        this.$store.commit('CLEAR_PETS');
+        this.$store.commit('CLEAR_PETS')
       }
       petService
         .getAllPets()
