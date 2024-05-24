@@ -5,7 +5,6 @@
       <h2 class="name">{{ name }}</h2>
       <p>Last fed: 2 hours ago</p>
     </section>
-
     <button id="feed" title="Feed">Feed Now</button>
     <font-awesome-icon icon="fa-solid fa-pencil" class="icon" title="Edit" />
   </div>
