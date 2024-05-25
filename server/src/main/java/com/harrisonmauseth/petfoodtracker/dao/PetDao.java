@@ -23,6 +23,15 @@ public interface PetDao {
     Pet getPetByPetId(int petId);
 
     /**
+     * Get a specific pet for a specific user.
+     *
+     * @param username the authenticated user's username
+     * @param petId    the id of the pet you wish to get
+     * @return the retrieved pet object
+     */
+    Pet getPetByPetId(String username, int petId);
+
+    /**
      * Insert a new pet into the database.
      *
      * @param pet      the pet object to create

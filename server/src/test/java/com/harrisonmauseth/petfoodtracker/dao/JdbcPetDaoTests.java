@@ -54,7 +54,7 @@ public class JdbcPetDaoTests extends BaseDaoTests {
     }
 
     @Test
-    public void getPetByPetId_returns_correct_pet() {
+    public void getPetByPetId_returns_correct_pet_without_username() {
         Pet retrievedPet = dao.getPetByPetId(PET_1.getPetId());
         Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
         assertPetsMatch("getPetByPetId()", PET_1, retrievedPet);
@@ -64,6 +64,21 @@ public class JdbcPetDaoTests extends BaseDaoTests {
         assertPetsMatch("getPetByPetId()", PET_2, retrievedPet);
 
         retrievedPet = dao.getPetByPetId(PET_3.getPetId());
+        Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
+        assertPetsMatch("getPetByPetId()", PET_3, retrievedPet);
+    }
+
+    @Test
+    public void getPetByPetId_returns_correct_pet_with_username() {
+        Pet retrievedPet = dao.getPetByPetId(USERNAME_1, PET_1.getPetId());
+        Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
+        assertPetsMatch("getPetByPetId()", PET_1, retrievedPet);
+
+        retrievedPet = dao.getPetByPetId(USERNAME_2, PET_2.getPetId());
+        Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
+        assertPetsMatch("getPetByPetId()", PET_2, retrievedPet);
+
+        retrievedPet = dao.getPetByPetId(USERNAME_3, PET_3.getPetId());
         Assert.assertNotNull("getPetByPetId() returned a null pet.", retrievedPet);
         assertPetsMatch("getPetByPetId()", PET_3, retrievedPet);
     }

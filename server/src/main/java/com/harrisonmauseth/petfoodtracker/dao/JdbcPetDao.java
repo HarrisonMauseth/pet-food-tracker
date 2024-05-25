@@ -54,6 +54,23 @@ public class JdbcPetDao implements PetDao {
     }
 
     @Override
+    public Pet getPetByPetId(String username, int petId) {
+        Pet pet = null;
+        int userId = getUserId(username);
+        String sql = "SELECT p.pet_id, p.user_id, p.pet_name, p.pet_nickname, p.pet_type, p.pet_birthday, p.image_path, p.notes " +
+                "FROM pet p WHERE pet_id = ? AND user_id = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, petId, userId);
+            if (result.next()) {
+                pet = mapRowToPet(result);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to database.");
+        }
+        return pet;
+    }
+
+    @Override
     public Pet createPet(Pet pet, String username) {
         Pet createdPet = null;
         int userId = getUserId(username);

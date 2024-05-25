@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import PetCreationView from '../views/PetCreationView.vue'
+import PetUpdateView from '../views/PetUpdateView.vue'
 
 const routes = [
   {
@@ -26,30 +27,38 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView,
-      meta: {
-        requiresAuth: false
-      }
+    meta: {
+      requiresAuth: false
+    }
   },
   {
-    path: "/logout",
-    name: "logout",
+    path: '/logout',
+    name: 'logout',
     component: LogoutView,
     meta: {
       requiresAuth: false
     }
   },
   {
-    path: "/register",
-    name: "register",
+    path: '/register',
+    name: 'register',
     component: RegisterView,
     meta: {
       requiresAuth: false
     }
   },
   {
-    path: "/pets/create",
-    name: "petForm",
+    path: '/pets/create',
+    name: 'createPet',
     component: PetCreationView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/pets/update/:id',
+    name: 'updatePet',
+    component: PetUpdateView,
     meta: {
       requiresAuth: true
     }

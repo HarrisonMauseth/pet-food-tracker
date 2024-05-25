@@ -6,7 +6,12 @@
       <p>Last fed: 2 hours ago</p>
     </section>
     <button id="feed" title="Feed">Feed Now</button>
-    <font-awesome-icon icon="fa-solid fa-pencil" class="icon" title="Edit" />
+    <font-awesome-icon
+      icon="fa-solid fa-pencil"
+      class="icon"
+      title="Edit"
+      @click="navigateToUpdatePet"
+    />
   </div>
 </template>
 
@@ -25,6 +30,9 @@ export default {
     },
     getDefaultImage() {
       this.imagePath = '../public/img/default.png'
+    },
+    navigateToUpdatePet() {
+      this.$router.push({ name: 'updatePet', params: { id: this.id } })
     }
   },
   created() {

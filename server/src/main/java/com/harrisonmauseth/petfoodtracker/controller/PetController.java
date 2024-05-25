@@ -38,6 +38,11 @@ public class PetController {
         return petDao.getPets(principal.getName());
     }
 
+    @GetMapping(path = "/{id}")
+    public Pet getPetById(@PathVariable int id, Principal principal) {
+        return petDao.getPetByPetId(principal.getName(), id);
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Pet addPet(@Valid @RequestBody Pet pet, Principal principal) {

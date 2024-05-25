@@ -1,5 +1,5 @@
 <template>
-  <div class="add-pet" @click="navigateToPetForm">
+  <div class="add-pet" @click="navigateToPetCreation">
     <p>Add New Pet</p>
   </div>
 </template>
@@ -7,8 +7,8 @@
 <script>
 export default {
   methods: {
-    navigateToPetForm() {
-      this.$router.push({ name: 'petForm' })
+    navigateToPetCreation() {
+      this.$router.push({ name: 'createPet' })
     }
   }
 }
@@ -31,7 +31,7 @@ export default {
   transition: 0.8s;
 }
 .add-pet:hover {
-    border: 3px solid var(--hover);
-    background-color: var(--hover);
+  border: 3px solid var(--hover);
+  background-color: var(--hover);
 }
 </style>
