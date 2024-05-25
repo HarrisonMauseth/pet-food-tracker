@@ -15,7 +15,9 @@
       </span>
     </nav>
   </header>
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <script>
@@ -36,30 +38,43 @@ export default {
   font-size: 30px;
 }
 nav {
+  background-color: var(--color-background);
   display: flex;
   justify-content: space-evenly;
-  width: 100vw;
+  width: 100%;
   position: fixed;
   top: 0;
+  padding-top: 1rem;
   left: 0;
+  z-index: 99;
 }
 span {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.4s;
+  color: var(--link);
 }
-
 span:hover {
-  color: forestgreen;
+  color: var(--hover-link);
   text-decoration: underline;
 }
+main {
+  position: relative;
+  top: 3rem;
+}
 
-@media (max-width: 1024px) {
+@media only screen and (max-width: 1024px) {
   nav {
-    position: fixed;
+    top: auto;
     bottom: 0;
+    padding-top: auto;
+    padding-bottom: 1rem;
+  }
+  main {
+    top: auto;
+    bottom: 2rem;
   }
 }
 </style>

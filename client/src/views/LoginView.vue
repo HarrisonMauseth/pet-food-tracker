@@ -22,7 +22,7 @@
           required
           autocomplete="off"
         />
-        <div id="submit"><button type="submit">Sign in</button></div>
+        <div class="submit"><button type="submit">Sign in</button></div>
       </div>
       <hr />
       <div id="register">
@@ -109,7 +109,7 @@ input[type='password'] {
   padding: 8px;
   width: 95%;
 }
-#submit {
+.submit {
   text-align: center;
   width: 100%;
 }

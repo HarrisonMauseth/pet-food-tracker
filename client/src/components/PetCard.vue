@@ -35,10 +35,10 @@ export default {
 
 <style scoped>
 .pet-card {
-  border: 1px solid yellow;
+  background-color: var(--color-background-soft);
+  border: 3px solid;
   border-radius: 20px;
-  width: 90vw;
-  /* max-width: 1900px; */
+  width: 100%;
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -62,7 +62,7 @@ export default {
 #feed {
   flex-basis: 40%;
   height: 60px;
-  background-color: #0f111a;
+  background-color: var(--color-background);
   color: #adb1ca;
   border-radius: 15px;
   border: none;
@@ -77,6 +77,6 @@ export default {
   transition: 0.8s;
 }
 .icon:hover {
-  color: forestgreen;
+  color: var(--link);
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div id="pet-creation">
-    <form>
-      <h1>Please Provide Information</h1>
+    <form v-on:submit.prevent="addPet">
+      <h1>Pet Information</h1>
       <div class="fields">
-        <label for="pet-name">Pet Name *</label>
+        <label for="pet-name">Pet Name <span class="required">*</span></label>
         <input
           type="text"
           id="pet-name"
@@ -12,9 +12,9 @@
           required
           autocomplete="off"
         />
-        <label for="pet-type">Pet Type *</label>
-        <select id="pet-type" name="type" v-model="type" required>
-          <option disabled value="">---</option>
+        <label for="pet-type">Pet Type <span class="required">*</span></label>
+        <select id="pet-type" name="type" v-model="pet.type" required>
+          <option disabled value="">--- Please Select ---</option>
           <option value="bearded dragon">Bearded Dragon</option>
           <option value="cat">Cat</option>
           <option value="chameleon">Chameleon</option>
@@ -47,15 +47,28 @@
           <option value="other">Other</option>
         </select>
         <label for="pet-birthday">Pet Birthday</label>
-        <input type="date" name="birthday" v-model="birthday" />
+        <input type="date" name="birthday" v-model="pet.birthday" :max="today" />
         <label for="pet-notes">Notes</label>
-        <textarea id="pet-notes" name="notes" cols="60" rows="10" v-model.lazy="notes"></textarea>
+        <textarea
+          id="pet-notes"
+          name="notes"
+          cols="60"
+          rows="10"
+          v-model.lazy="pet.notes"
+        ></textarea>
+        <div class="submit"><button type="submit">Add Pet</button></div>
+      </div>
+      <hr />
+      <div class="info">
+        <span class="required">* denotes required field</span>
+        <span class="reset" @click="resetForm">Reset</span>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import petService from '@/services/PetService'
 export default {
   data() {
     return {
@@ -68,10 +81,132 @@ export default {
         notes: ''
       }
     }
+  },
+  methods: {
+    resetForm() {
+      this.pet = {
+        name: '',
+        shortened_name: null,
+        type: '',
+        birthday: null,
+        image_path: null,
+        notes: ''
+      }
+    },
+    addPet() {
+      this.$store.commit('IS_LOADING')
+      petService
+        .createNewPet(this.pet)
+        .then((response) => {
+          this.$store.commit('IS_LOADED')
+          if (response.status === 201) {
+            this.resetForm()
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  },
+  computed: {
+    today() {
+      const today = new Date(Date.now())
+      const year = today.getFullYear()
+      const month = String(today.getMonth() + 1).padStart(2, '0')
+      const day = String(today.getDate()).padStart(2, '0')
+      return `${year}-${month}-${day}`
+    }
   }
 }
 </script>
 
 <style scoped>
-
+* {
+  background-color: var(--color-background-soft);
+  color: var(--font);
+}
+#pet-creation {
+  align-items: center;
+  border-radius: 10px;
+  border: 3px solid #222633;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+  width: 500px;
+}
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--header);
+}
+.fields {
+  margin-bottom: 20px;
+  width: 100%;
+}
+label {
+  padding-left: 8px;
+}
+#pet-name,
+#pet-type,
+input[type='date'] {
+  border-radius: 5px;
+  border: 1px solid var(--black-mute);
+  margin-bottom: 10px;
+  margin-top: 5px;
+  padding: 8px;
+  width: 95%;
+  font-size: 15px;
+  font-family: var(--default-fonts);
+}
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+textarea {
+  border-radius: 5px;
+  border: 1px solid var(--black-mute);
+  margin-bottom: 10px;
+  margin-top: 5px;
+  padding: 8px;
+  resize: none;
+  width: 95%;
+  font-family: var(--default-fonts);
+  font-size: 16px;
+}
+.submit {
+  text-align: center;
+  width: 100%;
+}
+button {
+  background-color: var(--color-background);
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 75%;
+}
+button:hover {
+  background-color: #46096e;
+}
+.required {
+  color: darkred;
+  font-style: italic;
+  font-size: 18px;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 1rem;
+}
+.reset {
+  color: var(--link);
+  transition: 0.4s;
+  cursor: pointer;
+  padding-right: 2rem;
+}
+.reset:hover {
+  color: var(--hover-link);
+  text-decoration: underline;
+}
 </style>

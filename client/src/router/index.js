@@ -6,6 +6,7 @@ import DashboardView from '../views/DashboardView.vue'
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import PetCreationView from '../views/PetCreationView.vue'
 
 const routes = [
   {
@@ -45,6 +46,14 @@ const routes = [
       requiresAuth: false
     }
   },
+  {
+    path: "/pets/create",
+    name: "petForm",
+    component: PetCreationView,
+    meta: {
+      requiresAuth: true
+    }
+  }
 ]
 
 // Create the router
