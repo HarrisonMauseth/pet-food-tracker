@@ -5,7 +5,7 @@
       <h2 class="name">{{ name }}</h2>
       <p class="time">{{ timeSinceLastTimestamp }}</p>
     </section>
-    <button type="button" id="feed" title="Feed" @click.prevent="logFeeding">Feed Now</button>
+    <button type="button" id="feed" title="Feed" @click="logFeeding">Feed Now</button>
     <font-awesome-icon
       icon="fa-solid fa-pencil"
       class="icon"
@@ -63,7 +63,7 @@ export default {
         .log(this.defaultLog)
         .then((response) => {
           if (response.status === 201) {
-            // do something
+            this.$router.push({ name: 'home' })
           }
         })
         .catch((error) => {
@@ -138,7 +138,7 @@ export default {
 #feed {
   flex-basis: 40%;
   height: 60px;
-  background-color: var(--color-background);
+  background-color: var(--black);
   color: #adb1ca;
   border-radius: 15px;
   border: none;

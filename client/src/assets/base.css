@@ -13,6 +13,7 @@
   --hover: #46096e;
   --hover-link: #c792ea;
   --font: #adb1ca;
+  --background-gradient: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
 
   --vt-c-indigo: #2c3e50;
 
@@ -47,7 +48,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--black);
+    --color-background: var(--background-gradient);
     --color-background-soft: var(--black-soft);
     --color-background-orange: var(--link);
 

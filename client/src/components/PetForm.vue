@@ -114,7 +114,6 @@ export default {
       this.pet = { ...this.initialPet }
     },
     handleSubmit() {
-      console.log('Form submitted with pet:', this.pet)
       this.onSubmit(this.pet)
     },
     handleDelete() {
@@ -197,7 +196,7 @@ textarea {
   justify-content: space-around;
 }
 button {
-  background-color: var(--color-background);
+  background-color: var(--black);
   border-radius: 15px;
   border: none;
   cursor: pointer;

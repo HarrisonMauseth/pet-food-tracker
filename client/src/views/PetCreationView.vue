@@ -34,7 +34,7 @@ export default {
           this.$store.commit('IS_LOADED')
           if (response.status === 201) {
             alert("Pet added successfully!")
-            // Reset the form is handled within the PetForm component
+            this.$router.push({ name: 'dashboard' })
           }
         })
         .catch((error) => {

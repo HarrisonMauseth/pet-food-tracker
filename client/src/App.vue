@@ -38,13 +38,14 @@ export default {
   font-size: 30px;
 }
 nav {
-  background-color: var(--color-background);
+  background-color: var(--black);
   display: flex;
   justify-content: space-evenly;
   width: 100%;
   position: fixed;
   top: 0;
-  padding-top: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
   left: 0;
   z-index: 99;
 }
@@ -62,18 +63,16 @@ span:hover {
 }
 main {
   position: relative;
-  top: 3rem;
+  top: 4rem;
 }
 
 @media only screen and (max-width: 1024px) {
   nav {
     top: auto;
     bottom: 0;
-    padding-top: auto;
-    padding-bottom: 1rem;
   }
   main {
-    top: auto;
+    top: 1rem;
     bottom: 2rem;
   }
 }
