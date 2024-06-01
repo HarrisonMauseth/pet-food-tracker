@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import PetCreationView from '../views/PetCreationView.vue'
 import PetUpdateView from '../views/PetUpdateView.vue'
+import PetDetailsView from '../views/PetDetailsView.vue'
 
 const routes = [
   {
@@ -59,6 +60,14 @@ const routes = [
     path: '/pets/update/:id',
     name: 'updatePet',
     component: PetUpdateView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/pets/:id',
+    name: 'petDetails',
+    component: PetDetailsView,
     meta: {
       requiresAuth: true
     }

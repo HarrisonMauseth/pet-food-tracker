@@ -21,7 +21,7 @@ export default {
   methods: {
     loadPets() {
       this.$store.commit('IS_LOADING')
-      if (this.$store.state.pets.length != 0) {
+      if (this.petsAreLoaded) {
         this.$store.commit('CLEAR_PETS')
       }
       petService
@@ -34,7 +34,10 @@ export default {
           this.$store.commit('IS_LOADED')
           console.log(error)
         })
-    }
+    },
+    petsAreLoaded() {
+      return this.$store.pets.length > 0;
+    },
   },
   computed: {
     filteredPets() {

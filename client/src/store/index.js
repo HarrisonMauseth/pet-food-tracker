@@ -25,6 +25,7 @@ export function createStore(currentToken, currentUser) {
           localStorage.removeItem("user");
           state.token = "";
           state.user = {};
+          state.pets = [];
           axios.defaults.headers.common = {};
         },
         SET_MESSAGE(state, message) {
