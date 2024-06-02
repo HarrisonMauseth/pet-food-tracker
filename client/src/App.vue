@@ -29,7 +29,7 @@ export default {
     navigateToDashboard() {
       this.$router.push({ name: 'dashboard' })
     }
-  }
+  },
 }
 </script>
 

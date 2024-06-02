@@ -60,12 +60,24 @@ export default {
 <style scoped>
 .pet-details {
   display: grid;
-  grid-template-rows: 1fr 2fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 2fr;
+  grid-template-columns:
+    2fr 1fr,
+    1fr;
   column-gap: 20px;
+  row-gap: 20px;
   grid-template-areas:
-    'photo header'
-    'photo notes';
+    'photo header header'
+    'photo . .'
+    'notes notes notes';
+  border: 3px solid;
+  border-radius: 30px;
+  padding: 30px;
+  height: 75vh;
+  background-color: var(--black-soft);
+  max-width: 2560px;
+  margin-left: auto;
+  margin-right: auto;
 }
 img {
   width: 640px;
@@ -77,15 +89,32 @@ img {
 }
 .info {
   grid-area: header;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'name icon'
+    'type birthday';
+}
+.name {
+  color: var(--header);
+  font-size: 40px;
+  grid-area: name;
+}
+.icon {
+  grid-area: icon;
+}
+.pet-type {
+  grid-area: type;
+}
+.pet-birthday {
+  grid-area: birthday;
+}
+h3 {
+  color: var(--header);
 }
 .pet-notes {
   grid-area: notes;
 }
-.name {
-  color: var(--header)
-}
-h3 {
-  text-decoration: underline;
-  color: var(--header)
-}
+
 </style>

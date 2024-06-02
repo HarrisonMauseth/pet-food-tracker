@@ -1,6 +1,6 @@
 <template>
   <div class="pet-card">
-    <img :src="imagePath" @error="getDefaultImage" />
+    <img :src="imagePath" @error="getDefaultImage" @click="navigateToPetDetails" />
     <section class="info">
       <h2 class="name">{{ name }}</h2>
       <p class="time">{{ timeSinceLastTimestamp }}</p>
@@ -45,6 +45,9 @@ export default {
     },
     navigateToUpdatePet() {
       this.$router.push({ name: 'updatePet', params: { id: this.id } })
+    },
+    navigateToPetDetails() {
+      this.$router.push({ name: 'petDetails', params: { id: this.id } })
     },
     getLogs() {
       logService
