@@ -4,6 +4,7 @@ import com.harrisonmauseth.petfoodtracker.dao.TrackerDao;
 import com.harrisonmauseth.petfoodtracker.exception.DaoException;
 import com.harrisonmauseth.petfoodtracker.model.Tracker;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -74,6 +75,22 @@ public class TrackerController {
         }
         if (createdLog != null) {
             return createdLog;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to log feeding event.");
+        }
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path = "/multiple")
+    public List<Tracker> logMultiple(@RequestBody Tracker[] eventsToCreate, Principal principal) {
+        List<Tracker> createdLogs;
+        try {
+            createdLogs = trackerDao.createNewEvents(eventsToCreate, principal.getName());
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Server error: " + e.getMessage());
+        }
+        if (createdLogs != null) {
+            return createdLogs;
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unable to log feeding event.");
         }
