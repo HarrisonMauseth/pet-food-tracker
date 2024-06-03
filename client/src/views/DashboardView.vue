@@ -33,11 +33,14 @@ export default {
         .catch((error) => {
           this.$store.commit('IS_LOADED')
           console.log(error)
+          if (error.response) {
+            this.$router.push({ name: 'logout' })
+          }
         })
     },
     petsAreLoaded() {
-      return this.$store.pets.length > 0;
-    },
+      return this.$store.pets.length > 0
+    }
   },
   computed: {
     filteredPets() {
@@ -50,6 +53,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -5,7 +5,7 @@
       <h2 class="name">{{ name }}</h2>
       <p class="time">{{ timeSinceLastTimestamp }}</p>
     </section>
-    <button type="button" id="feed" title="Feed" @click="logFeeding">Feed Now</button>
+    <feed-button :logData="defaultLog" @logged-food="handleLoggedFood" />
     <font-awesome-icon
       icon="fa-solid fa-pencil"
       class="icon"
@@ -17,7 +17,11 @@
 
 <script>
 import logService from '../services/LogService.js'
+import FeedButton from './FeedButton.vue'
 export default {
+  components: {
+    FeedButton
+  },
   data() {
     return {
       imagePath: '',
@@ -61,18 +65,8 @@ export default {
           console.error(error)
         })
     },
-    logFeeding() {
-      logService
-        .log(this.defaultLog)
-        .then((response) => {
-          if (response.status === 201) {
-            this.$router.push({ name: 'home' })
-          }
-        })
-        .catch((error) => {
-          console.error(error)
-          alert('Something went wrong. Please try again. ' + error)
-        })
+    handleLoggedFood(log) {
+      this.logs.unshift(log)
     }
   },
   created() {
@@ -96,15 +90,28 @@ export default {
         const minutesDifference = Math.floor(secondsDifference / 60)
         const hoursDifference = Math.floor(minutesDifference / 60)
         const daysDifference = Math.floor(hoursDifference / 24)
+        const weeksDifference = Math.floor(daysDifference / 7)
 
-        if (daysDifference > 0) {
-          return `${daysDifference} days ago`
+        if (weeksDifference > 0) {
+          if (weeksDifference > 1) {
+            return `${weeksDifference} weeks ago`
+          } else return `${weeksDifference} week ago`
+        } else if (daysDifference > 0) {
+          if (daysDifference === 1) {
+            return `${daysDifference} day ago`
+          } else return `${daysDifference} days ago`
         } else if (hoursDifference > 0) {
-          return `${hoursDifference} hours ago`
+          if (hoursDifference === 1) {
+            return `${hoursDifference} hour ago`
+          } else return `${hoursDifference} hours ago`
         } else if (minutesDifference > 0) {
-          return `${minutesDifference} minutes ago`
+          if (minutesDifference === 1) {
+            return `${minutesDifference} minute ago`
+          } else return `${minutesDifference} minutes ago`
         } else {
-          return `${secondsDifference} seconds ago`
+          if (secondsDifference === 1) {
+            return `${secondsDifference} second ago`
+          } else return `${secondsDifference} seconds ago`
         }
       } else return 'No feedings logged'
     }
