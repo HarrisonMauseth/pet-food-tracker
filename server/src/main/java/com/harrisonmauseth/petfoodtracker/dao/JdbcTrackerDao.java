@@ -101,6 +101,15 @@ public class JdbcTrackerDao implements TrackerDao {
     }
 
     @Override
+    public List<Tracker> createNewEvents(Tracker[] events, String username) {
+        List<Tracker> createdEvents = new ArrayList<>();
+        for (Tracker event : events) {
+            createdEvents.add(0, createNewEvent(event, username));
+        }
+        return createdEvents;
+    }
+
+    @Override
     public Tracker updateEvent(Tracker eventToUpdate, String username) {
         Tracker updatedEvent;
         int userId = getUserId(username);

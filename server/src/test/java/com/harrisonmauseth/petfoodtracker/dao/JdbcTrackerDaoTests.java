@@ -70,7 +70,7 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
     }
 
     @Test
-    public void createEvent_creates_event() {
+    public void createNewEvent_creates_event() {
         Tracker eventToCreate = new Tracker(0, 1, 1, LocalDateTime.parse("2000-05-05T05:00:00"),
                 "food1", 1, "unit1", "same food, different time, new event'");
 
@@ -85,6 +85,21 @@ public class JdbcTrackerDaoTests extends BaseDaoTests {
         // Verify that the event can be retrieved from the database
         Tracker retrievedEvent = dao.getEventByTrackerId(createdEvent.getTrackerId());
         assertEventsMatch("created event did not store properly within the database", createdEvent, retrievedEvent);
+    }
+
+    @Test
+    public void createNewEvents_creates_correctly_creates_events() {
+        Tracker newEvent1 = new Tracker(5, 1, 1, LocalDateTime.parse("2020-01-01T01:11:11"),
+                "food1", 1, "unit1", "newEvent1");
+        Tracker newEvent2 = new Tracker(6, 1, 1, LocalDateTime.parse("2020-01-02T02:22:22"),
+                "food1", 1, "unit1", "newEvent2");
+        Tracker newEvent3 = new Tracker(7, 1, 1, LocalDateTime.parse("2020-01-03T03:33:33"),
+                "food1", 1, "unit1", "newEvent3");
+        Tracker[] events = new Tracker[]{newEvent1, newEvent2, newEvent3};
+
+        List<Tracker> createdEvents = dao.createNewEvents(events, USERNAME_1);
+        Assert.assertNotNull("createNewEvents() returned a nul list of events.", createdEvents);
+        Assert.assertEquals("createNewEvents() did not return the correct number of events.", 3, createdEvents.size());
     }
 
     @Test

@@ -41,6 +41,15 @@ public interface TrackerDao {
     Tracker createNewEvent(Tracker eventToCreate, String username);
 
     /**
+     * Log multiple events for a user simultaneously
+     *
+     * @param events   an array of events to add to the database
+     * @param username the username of the user wishing to log an event
+     * @return a list of all the feeding events that were created
+     */
+    List<Tracker> createNewEvents(Tracker[] events, String username);
+
+    /**
      * Update a user's pet feeding event in the database.
      *
      * @param eventToUpdate the event to update in the database
