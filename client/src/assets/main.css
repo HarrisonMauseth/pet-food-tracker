@@ -10,7 +10,8 @@
   cursor: pointer;
 }
 
-a, button {
+a,
+button {
   text-decoration: none;
   transition: 0.8s;
 }

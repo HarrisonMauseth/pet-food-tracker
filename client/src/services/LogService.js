@@ -7,6 +7,9 @@ export default {
   log(log) {
     return axios.post(`/log`, log)
   },
+  logMultiple(logs) {
+    return axios.post(`/log/multiple`, logs)
+  },
   updateLog(id, log) {
     return axios.put(`/log/${id}`, log)
   },

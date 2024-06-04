@@ -38,7 +38,7 @@ export default {
       interval: null
     }
   },
-  props: ['id', 'name', 'image'],
+  props: ['id', 'name', 'image', 'allPetsFedResponse'],
   methods: {
     getImage() {
       let path = '../public/img/' + this.image
@@ -76,8 +76,21 @@ export default {
       this.$forceUpdate()
     }, 1000)
   },
+  mounted() {
+    this.$emit('card-created', this.id)
+  },
   beforeUnmount() {
     clearInterval(this.interval)
+  },
+  watch: {
+    allPetsFedResponse(logs) {
+      if (logs) {
+        const matchingLogs = logs.filter((log) => log.pet_id === this.id)
+        if (matchingLogs.length > 0) {
+          this.logs.unshift(matchingLogs[0])
+        }
+      }
+    }
   },
   computed: {
     timeSinceLastTimestamp() {
@@ -142,21 +155,12 @@ export default {
 .info {
   flex-basis: 20%;
 }
+.name {
+  color: var(--header);
+  font-weight: 500;
+}
 .time {
   font-style: italic;
-}
-#feed {
-  flex-basis: 40%;
-  height: 60px;
-  background-color: var(--black);
-  color: #adb1ca;
-  border-radius: 15px;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-}
-#feed:hover {
-  background-color: #46096e;
 }
 .icon {
   margin-right: 20px;

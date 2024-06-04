@@ -19,7 +19,7 @@ export default {
   border: 3px solid;
   border-radius: 20px;
   background-color: var(--color-background-soft);
-  height: 50px;
+  height: 60px;
   margin: 20px 0;
   width: 25%;
   margin: auto;

@@ -32,11 +32,12 @@ export default {
   background-color: var(--black);
   color: #adb1ca;
   border-radius: 15px;
-  border: none;
+  border: 3px solid;
   cursor: pointer;
   font-size: 20px;
 }
 #feed:hover {
-  background-color: #46096e;
+  border: 3px solid var(--hover);
+  background-color: var(--hover);
 }
 </style>
