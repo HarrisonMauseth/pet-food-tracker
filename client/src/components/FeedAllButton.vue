@@ -34,7 +34,7 @@ export default {
 .feed-all {
   border: 3px solid;
   border-radius: 20px;
-  background-color: var(--color-background-soft);
+  background-color: var(--black);
   height: 60px;
   margin: 20px 0;
   width: 25%;
@@ -49,5 +49,10 @@ export default {
 .feed-all:hover {
   border: 3px solid var(--hover);
   background-color: var(--hover);
+}
+@media (max-width: 1024px) {
+  .feed-all {
+    width: 100%;
+  }
 }
 </style>

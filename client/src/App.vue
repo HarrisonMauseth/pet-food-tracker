@@ -29,7 +29,7 @@ export default {
     navigateToDashboard() {
       this.$router.push({ name: 'dashboard' })
     }
-  },
+  }
 }
 </script>
 
@@ -44,8 +44,8 @@ nav {
   width: 100%;
   position: fixed;
   top: 0;
-  padding-top: .5rem;
-  padding-bottom: .5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   left: 0;
   z-index: 99;
 }
@@ -66,14 +66,14 @@ main {
   top: 4rem;
 }
 
-@media only screen and (max-width: 1024px) {
+@media (max-width: 720px) {
   nav {
     top: auto;
     bottom: 0;
   }
   main {
-    top: 1rem;
-    bottom: 2rem;
+    top: 2rem;
+    padding-bottom: 6rem;
   }
 }
 </style>

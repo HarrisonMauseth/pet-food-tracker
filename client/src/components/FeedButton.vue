@@ -40,4 +40,11 @@ export default {
   border: 3px solid var(--hover);
   background-color: var(--hover);
 }
+@media (max-width: 720px) {
+  #feed {
+    grid-area: button;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
 </style>

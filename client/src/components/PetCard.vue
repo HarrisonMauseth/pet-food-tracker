@@ -62,7 +62,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.error(error)
+          console.warn(error)
         })
     },
     handleLoggedFood(log) {
@@ -168,5 +168,29 @@ export default {
 }
 .icon:hover {
   color: var(--link);
+}
+@media (max-width: 720px) {
+  .pet-card {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas:
+      'photo info icon'
+      'button button button';
+    height: 200px;
+    row-gap: 20px;
+    column-gap: 20px;
+    padding: 10px 0;
+  }
+  .pet-card > img {
+    grid-area: photo;
+  }
+  .info {
+    grid-area: info;
+  }
+  .icon {
+    grid-area: icon;
+    justify-self: right;
+  }
 }
 </style>
