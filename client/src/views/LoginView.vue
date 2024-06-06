@@ -91,7 +91,8 @@ export default {
 #login {
   align-items: center;
   border-radius: 10px;
-  border: 3px solid #222633;
+  border: 3px solid;
+  box-shadow: var(--form-shadow);
   display: flex;
   flex-direction: column;
   margin-top: 50px;
@@ -114,7 +115,7 @@ label {
 input[type='text'],
 input[type='password'] {
   border-radius: 5px;
-  border: 1px solid #222633;
+  border: 1px solid var(--black-mute);
   margin-bottom: 10px;
   margin-top: 5px;
   padding: 8px;
