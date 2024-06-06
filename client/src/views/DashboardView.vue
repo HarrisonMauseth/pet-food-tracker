@@ -15,7 +15,7 @@
 <script>
 import PetCard from '@/components/PetCard.vue'
 import petService from '@/services/PetService'
-import AddPet from '@/components/AddPet.vue'
+import AddPet from '@/components/AddPetButton.vue'
 import FeedAll from '@/components/FeedAllButton.vue'
 export default {
   components: {

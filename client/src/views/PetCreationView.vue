@@ -1,6 +1,6 @@
 <template>
   <div id="pet-creation">
-    <PetForm :initialPet="initialPet" :onSubmit="addPet" buttonText="Add Pet" />
+    <PetForm class="pet-form" :initialPet="initialPet" :onSubmit="addPet" buttonText="Add Pet" />
   </div>
 </template>
 

@@ -1,74 +1,76 @@
 <template>
-  <div id="pet-form">
-    <form @submit.prevent="handleSubmit">
-      <h1>Pet Information</h1>
-      <div class="fields">
-        <label for="pet-name">Pet Name <span class="required">*</span></label>
-        <input
-          type="text"
-          id="pet-name"
-          placeholder="Name"
-          v-model="pet.name"
-          required
-          autocomplete="off"
-        />
-        <label for="pet-type">Pet Type <span class="required">*</span></label>
-        <select id="pet-type" name="type" v-model="pet.type" required>
-          <option disabled value="">--- Please Select ---</option>
-          <option value="bearded dragon">Bearded Dragon</option>
-          <option value="cat">Cat</option>
-          <option value="chameleon">Chameleon</option>
-          <option value="chicken">Chicken</option>
-          <option value="chinchilla">Chinchilla</option>
-          <option value="dog">Dog</option>
-          <option value="ferret">Ferret</option>
-          <option value="fish">Fish</option>
-          <option value="frog">Frog</option>
-          <option value="gerbil">Gerbil</option>
-          <option value="guinea pig">Guinea Pig</option>
-          <option value="hamster">Hamster</option>
-          <option value="hedgehog">Hedgehog</option>
-          <option value="hermit crab">Hermit Crab</option>
-          <option value="horse">Horse</option>
-          <option value="iguana">Iguana</option>
-          <option value="lizard">Lizard</option>
-          <option value="mouse">Mouse</option>
-          <option value="newt">Newt</option>
-          <option value="parrot">Parrot</option>
-          <option value="pig">Pig</option>
-          <option value="rabbit">Rabbit</option>
-          <option value="rat">Rat</option>
-          <option value="scorpion">Scorpion</option>
-          <option value="snake">Snake</option>
-          <option value="spider">Spider</option>
-          <option value="tarantula">Tarantula</option>
-          <option value="tortoise">Tortoise</option>
-          <option value="turtle">Turtle</option>
-          <option value="other">Other...</option>
-        </select>
-        <label for="pet-birthday">Pet Birthday</label>
-        <input type="date" name="birthday" v-model="pet.birthday" :max="today" />
-        <label for="pet-notes">Notes</label>
-        <textarea
-          id="pet-notes"
-          name="notes"
-          cols="60"
-          rows="10"
-          v-model.lazy="pet.notes"
-        ></textarea>
-        <div class="submit">
-          <button type="button" class="delete" v-if="showDeleteButton" @click="handleDelete">
-            Delete Pet
-          </button>
-          <button type="submit">{{ buttonText }}</button>
+  <div class="pet-form-container">
+    <div id="pet-form">
+      <form @submit.prevent="handleSubmit">
+        <h1>Pet Information</h1>
+        <div class="fields">
+          <label for="pet-name">Pet Name <span class="required">*</span></label>
+          <input
+            type="text"
+            id="pet-name"
+            placeholder="Name"
+            v-model="pet.name"
+            required
+            autocomplete="off"
+          />
+          <label for="pet-type">Pet Type <span class="required">*</span></label>
+          <select id="pet-type" name="type" v-model="pet.type" required>
+            <option disabled value="">--- Please Select ---</option>
+            <option value="bearded dragon">Bearded Dragon</option>
+            <option value="cat">Cat</option>
+            <option value="chameleon">Chameleon</option>
+            <option value="chicken">Chicken</option>
+            <option value="chinchilla">Chinchilla</option>
+            <option value="dog">Dog</option>
+            <option value="ferret">Ferret</option>
+            <option value="fish">Fish</option>
+            <option value="frog">Frog</option>
+            <option value="gerbil">Gerbil</option>
+            <option value="guinea pig">Guinea Pig</option>
+            <option value="hamster">Hamster</option>
+            <option value="hedgehog">Hedgehog</option>
+            <option value="hermit crab">Hermit Crab</option>
+            <option value="horse">Horse</option>
+            <option value="iguana">Iguana</option>
+            <option value="lizard">Lizard</option>
+            <option value="mouse">Mouse</option>
+            <option value="newt">Newt</option>
+            <option value="parrot">Parrot</option>
+            <option value="pig">Pig</option>
+            <option value="rabbit">Rabbit</option>
+            <option value="rat">Rat</option>
+            <option value="scorpion">Scorpion</option>
+            <option value="snake">Snake</option>
+            <option value="spider">Spider</option>
+            <option value="tarantula">Tarantula</option>
+            <option value="tortoise">Tortoise</option>
+            <option value="turtle">Turtle</option>
+            <option value="other">Other...</option>
+          </select>
+          <label for="pet-birthday">Pet Birthday</label>
+          <input type="date" name="birthday" v-model="pet.birthday" :max="today" />
+          <label for="pet-notes">Notes</label>
+          <textarea
+            id="pet-notes"
+            name="notes"
+            cols="60"
+            rows="10"
+            v-model.lazy="pet.notes"
+          ></textarea>
+          <div class="submit">
+            <button type="button" class="delete" v-if="showDeleteButton" @click="handleDelete">
+              Delete Pet
+            </button>
+            <button type="submit">{{ buttonText }}</button>
+          </div>
         </div>
-      </div>
-      <hr />
-      <div class="info">
-        <span class="required">* denotes required field</span>
-        <span class="reset" @click="resetForm">Reset</span>
-      </div>
-    </form>
+        <hr />
+        <div class="info">
+          <span class="required">* denotes required field</span>
+          <span class="reset" @click="resetForm">Reset</span>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -141,15 +143,24 @@ export default {
   background-color: var(--color-background-soft);
   color: var(--font);
 }
+.pet-form-container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  min-height: calc(100vh - 7.875rem);
+}
 #pet-form {
   align-items: center;
   border-radius: 10px;
-  border: 3px solid #222633;
+  border: 3px solid;
   display: flex;
   flex-direction: column;
-  margin: auto;
   padding: 20px;
-  width: 500px;
+  max-width: 500px;
+  box-shadow: var(--form-shadow);
 }
 h1 {
   margin-bottom: 20px;
@@ -231,5 +242,10 @@ button:hover {
 .reset:hover {
   color: var(--hover-link);
   text-decoration: underline;
+}
+@media (max-width: 720px) {
+  .pet-form-container {
+    min-height: calc(100vh - 12.25rem);
+  }
 }
 </style>
