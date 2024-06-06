@@ -1,4 +1,5 @@
 <template>
+  <div class="login-container">
   <div id="login">
     <form v-on:submit.prevent="login">
       <h1>Please Sign In</h1>
@@ -31,6 +32,7 @@
       </div>
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -76,6 +78,15 @@ export default {
 * {
   background-color: #0f111a;
   color: #adb1ca;
+  margin: 0;
+  padding: 0;
+}
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 12rem);
+  background-color: transparent;
 }
 #login {
   align-items: center;
@@ -136,4 +147,12 @@ button:hover {
   color: #c792ea;
   text-decoration: underline;
 }
+@media (max-width: 720px) {
+  .login-container {
+    min-height: calc(100vh - 8rem);
+  }
+  
+}
+
+
 </style>
