@@ -1,47 +1,49 @@
 <template>
-  <div id="register">
-    <form v-on:submit.prevent="register">
-      <h1>Create Account</h1>
-      <div id="fields">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Username"
-          v-model="user.username"
-          required
-          autofocus
-          autocomplete="off"
-        />
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          v-model="user.password"
-          required
-          autocomplete="off"
-        />
-        <label for="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirm Password"
-          v-model="user.confirmPassword"
-          required
-          autocomplete="off"
-        />
-        <div></div>
-        <div id="create">
-          <button type="submit">Create Account</button>
+  <div class="register-container">
+    <div id="register">
+      <form v-on:submit.prevent="register">
+        <h1>Create Account</h1>
+        <div id="fields">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            v-model="user.username"
+            required
+            autofocus
+            autocomplete="off"
+          />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            v-model="user.password"
+            required
+            autocomplete="off"
+          />
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            v-model="user.confirmPassword"
+            required
+            autocomplete="off"
+          />
+          <div></div>
+          <div id="create">
+            <button type="submit">Create Account</button>
+          </div>
         </div>
-      </div>
-      <hr />
-      <div id="sign-in">
-        Have an account?
-        <router-link v-bind:to="{ name: 'login' }">Sign in!</router-link>
-      </div>
-    </form>
+        <hr />
+        <div id="sign-in">
+          Have an account?
+          <router-link v-bind:to="{ name: 'login' }">Sign in!</router-link>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -110,10 +112,18 @@ export default {
   background-color: #0f111a;
   color: #adb1ca;
 }
+.register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 12rem);
+  background-color: transparent;
+}
 #register {
   align-items: center;
   border-radius: 10px;
-  border: 3px solid #222633;
+  border: 3px solid;
+  box-shadow: var(--form-shadow);
   display: flex;
   flex-direction: column;
   margin-top: 50px;
@@ -140,6 +150,7 @@ input {
   margin-top: 5px;
   padding: 8px;
   width: 95%;
+  font-size: 15px;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -156,6 +167,7 @@ button {
   cursor: pointer;
   padding: 10px 20px;
   width: 75%;
+  font-size: 17px;
 }
 button:hover {
   background-color: #46096e;
@@ -171,5 +183,10 @@ button:hover {
 #sign-in a:hover {
   color: #c792ea;
   text-decoration: underline;
+}
+@media (max-width: 720px) {
+  .register-container {
+    min-height: calc(100vh - 8rem);
+  }
 }
 </style>

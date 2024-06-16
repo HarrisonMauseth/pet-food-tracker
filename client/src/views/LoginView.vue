@@ -1,38 +1,38 @@
 <template>
   <div class="login-container">
-  <div id="login">
-    <form v-on:submit.prevent="login">
-      <h1>Please Sign In</h1>
-      <div id="fields">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Username"
-          v-model="user.username"
-          required
-          autofocus
-          autocomplete="off"
-        />
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
-          v-model="user.password"
-          required
-          autocomplete="off"
-        />
-        <div class="submit"><button type="submit">Sign in</button></div>
-      </div>
-      <hr />
-      <div id="register">
-        Need an account?
-        <router-link v-bind:to="{ name: 'register' }">Register!</router-link>
-      </div>
-    </form>
+    <div id="login">
+      <form v-on:submit.prevent="login">
+        <h1>Please Sign In</h1>
+        <div id="fields">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            v-model="user.username"
+            required
+            autofocus
+            autocomplete="off"
+          />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            v-model="user.password"
+            required
+            autocomplete="off"
+          />
+          <div class="submit"><button type="submit">Sign in</button></div>
+        </div>
+        <hr />
+        <div id="register">
+          Need an account?
+          <router-link v-bind:to="{ name: 'register' }">Register!</router-link>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -120,6 +120,7 @@ input[type='password'] {
   margin-top: 5px;
   padding: 8px;
   width: 95%;
+  font-size: 15px;
 }
 .submit {
   text-align: center;
@@ -132,6 +133,7 @@ button {
   cursor: pointer;
   padding: 10px 20px;
   width: 75%;
+  font-size: 17px;
 }
 button:hover {
   background-color: #46096e;
@@ -152,8 +154,5 @@ button:hover {
   .login-container {
     min-height: calc(100vh - 8rem);
   }
-  
 }
-
-
 </style>
