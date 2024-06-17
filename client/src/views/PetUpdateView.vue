@@ -42,10 +42,9 @@ export default {
             this.$router.push({ name: 'dashboard' })
           }
         })
-        .catch((error) => {
+        .catch(() => {
           this.$store.commit('IS_LOADED')
           alert('Unexpected error. Please try again in a little bit.')
-          console.log(error)
         })
     },
     deletePet() {
@@ -60,10 +59,9 @@ export default {
             this.$router.push({ name: 'dashboard' })
           }
         })
-        .catch((error) => {
+        .catch(() => {
           this.$store.commit('IS_LOADED')
           alert('Unexpected error. Please try again in a little bit.')
-          console.error(error)
         })
     }
   },

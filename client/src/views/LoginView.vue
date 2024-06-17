@@ -77,16 +77,16 @@ export default {
 <style scoped>
 * {
   background-color: #0f111a;
-  color: #adb1ca;
+  color: var(--font);
   margin: 0;
   padding: 0;
 }
 .login-container {
-  display: flex;
   align-items: center;
+  background-color: transparent;
+  display: flex;
   justify-content: center;
   min-height: calc(100vh - 12rem);
-  background-color: transparent;
 }
 #login {
   align-items: center;
@@ -101,9 +101,9 @@ export default {
   width: 300px;
 }
 h1 {
+  color: var(--header);
   margin-bottom: 20px;
   text-align: center;
-  color: #e88c59;
 }
 #fields {
   margin-bottom: 20px;
@@ -116,11 +116,11 @@ input[type='text'],
 input[type='password'] {
   border-radius: 5px;
   border: 1px solid var(--black-mute);
+  font-size: 15px;
   margin-bottom: 10px;
   margin-top: 5px;
   padding: 8px;
   width: 95%;
-  font-size: 15px;
 }
 .submit {
   text-align: center;
@@ -131,9 +131,9 @@ button {
   border-radius: 15px;
   border: none;
   cursor: pointer;
+  font-size: 17px;
   padding: 10px 20px;
   width: 75%;
-  font-size: 17px;
 }
 button:hover {
   background-color: #46096e;

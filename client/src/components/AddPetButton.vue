@@ -16,23 +16,23 @@ export default {
 
 <style scoped>
 .add-pet {
-  border: 3px solid;
-  border-radius: 20px;
+  align-items: center;
   background-color: var(--black);
-  height: 60px;
-  margin: 20px 0;
-  width: 25%;
-  margin: auto;
+  border-radius: 20px;
+  border: 3px solid;
   cursor: pointer;
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 30px;
+  height: 60px;
+  justify-content: center;
+  margin: 20px 0;
+  margin: auto;
   transition: 0.8s;
+  width: 25%;
 }
 .add-pet:hover {
-  border: 3px solid var(--hover);
   background-color: var(--hover);
+  border: 3px solid var(--hover);
 }
 @media (max-width: 1024px) {
   .add-pet {

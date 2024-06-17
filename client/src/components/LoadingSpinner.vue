@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 .load-spinner {
-  transition-property: opacity;
   transition-duration: 800ms;
+  transition-property: opacity;
 }
 </style>

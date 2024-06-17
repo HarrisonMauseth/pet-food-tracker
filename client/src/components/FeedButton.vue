@@ -16,9 +16,8 @@ export default {
             this.$emit('logged-food', response.data)
           }
         })
-        .catch((error) => {
-          console.error(error)
-          alert('Something went wrong. Please try again. ' + error)
+        .catch(() => {
+          alert('Something went wrong. Please try again.')
         })
     }
   }
@@ -27,24 +26,24 @@ export default {
 
 <style scoped>
 #feed {
-  flex-basis: 40%;
-  height: 60px;
   background-color: var(--black);
-  color: #adb1ca;
   border-radius: 15px;
   border: 3px solid;
+  color: #adb1ca;
   cursor: pointer;
+  flex-basis: 40%;
   font-size: 20px;
+  height: 60px;
 }
 #feed:hover {
-  border: 3px solid var(--hover);
   background-color: var(--hover);
+  border: 3px solid var(--hover);
 }
 @media (max-width: 720px) {
   #feed {
     grid-area: button;
-    width: 90%;
     margin: 0 auto;
+    width: 90%;
   }
 }
 </style>

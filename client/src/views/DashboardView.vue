@@ -44,7 +44,6 @@ export default {
         })
         .catch((error) => {
           this.$store.commit('IS_LOADED')
-          console.log(error)
           if (error.response) {
             this.$router.push({ name: 'logout' })
           }

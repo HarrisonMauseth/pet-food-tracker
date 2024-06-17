@@ -61,8 +61,8 @@ export default {
             this.logs = response.data
           }
         })
-        .catch((error) => {
-          console.warn(error)
+        .catch(() => {
+          // eat the error as there is logic in place for no logs
         })
     },
     handleLoggedFood(log) {
@@ -134,23 +134,23 @@ export default {
 
 <style scoped>
 .pet-card {
-  background-color: var(--color-background-soft);
-  border: 3px solid;
-  border-radius: 20px;
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  background-color: var(--color-background-soft);
+  border-radius: 20px;
+  border: 3px solid;
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
   margin: 20px 0;
+  width: 100%;
 }
 .pet-card > img {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
   border-radius: 50%;
-  margin-left: 20px;
   cursor: pointer;
+  height: 75px;
+  margin-left: 20px;
+  object-fit: cover;
+  width: 75px;
 }
 .info {
   flex-basis: 20%;
@@ -171,16 +171,16 @@ export default {
 }
 @media (max-width: 720px) {
   .pet-card {
+    column-gap: 20px;
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 2fr 1fr;
     grid-template-areas:
       'photo info icon'
       'button button button';
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
     height: 200px;
-    row-gap: 20px;
-    column-gap: 20px;
     padding: 10px 0;
+    row-gap: 20px;
   }
   .pet-card > img {
     grid-area: photo;

@@ -41,21 +41,21 @@ nav {
   background-color: var(--black);
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  left: 0;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
   position: fixed;
   top: 0;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  left: 0;
+  width: 100%;
   z-index: 99;
 }
 span {
+  align-items: center;
+  color: var(--link);
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  cursor: pointer;
   transition: 0.4s;
-  color: var(--link);
 }
 span:hover {
   color: var(--hover-link);
@@ -68,12 +68,12 @@ main {
 
 @media (max-width: 720px) {
   nav {
-    top: auto;
     bottom: 0;
+    top: auto;
   }
   main {
-    top: 2rem;
     padding-bottom: 6rem;
+    top: 2rem;
   }
 }
 </style>

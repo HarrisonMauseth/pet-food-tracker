@@ -113,11 +113,11 @@ export default {
   color: #adb1ca;
 }
 .register-container {
-  display: flex;
   align-items: center;
+  background-color: transparent;
+  display: flex;
   justify-content: center;
   min-height: calc(100vh - 12rem);
-  background-color: transparent;
 }
 #register {
   align-items: center;
@@ -132,9 +132,9 @@ export default {
   width: 300px;
 }
 h1 {
+  color: var(--header);
   margin-bottom: 20px;
   text-align: center;
-  color: #e88c59;
 }
 #fields {
   margin-bottom: 20px;
@@ -146,11 +146,11 @@ label {
 input {
   border-radius: 5px;
   border: 1px solid #222633;
+  font-size: 15px;
   margin-bottom: 10px;
   margin-top: 5px;
   padding: 8px;
   width: 95%;
-  font-size: 15px;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -165,9 +165,9 @@ button {
   border-radius: 15px;
   border: none;
   cursor: pointer;
+  font-size: 17px;
   padding: 10px 20px;
   width: 75%;
-  font-size: 17px;
 }
 button:hover {
   background-color: #46096e;

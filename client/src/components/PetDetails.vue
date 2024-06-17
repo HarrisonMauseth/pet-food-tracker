@@ -59,42 +59,40 @@ export default {
 
 <style scoped>
 .pet-details {
-  display: grid;
-  grid-template-rows: 1fr 1fr 2fr;
-  grid-template-columns:
-    2fr 1fr,
-    1fr;
+  background-color: var(--black-soft);
+  border-radius: 30px;
+  border: 3px solid;
   column-gap: 20px;
-  row-gap: 20px;
+  display: grid;
   grid-template-areas:
     'photo header header'
     'photo . .'
     'notes notes notes';
-  border: 3px solid;
-  border-radius: 30px;
-  padding: 30px;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 2fr;
   height: 75vh;
-  background-color: var(--black-soft);
-  max-width: 2560px;
   margin-left: auto;
   margin-right: auto;
+  max-width: 2560px;
+  padding: 30px;
+  row-gap: 20px;
 }
 img {
-  width: 640px;
-  height: 480px;
-  grid-area: photo;
-  margin: auto;
   border-radius: 30px;
+  grid-area: photo;
+  height: 480px;
+  margin: auto;
   object-fit: cover;
+  width: 640px;
 }
 .info {
-  grid-area: header;
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-area: header;
   grid-template-areas:
     'name icon'
     'type birthday';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 .name {
   color: var(--header);
@@ -116,5 +114,4 @@ h3 {
 .pet-notes {
   grid-area: notes;
 }
-
 </style>

@@ -119,11 +119,7 @@ export default {
       this.onSubmit(this.pet)
     },
     handleDelete() {
-      if (typeof this.onDelete === 'function') {
-        this.onDelete(this.pet)
-      } else {
-        console.error('onDelete is not a function')
-      }
+      this.onDelete(this.pet)
     }
   },
   computed: {
@@ -144,28 +140,28 @@ export default {
   color: var(--font);
 }
 .pet-form-container {
-  margin: 0;
-  padding: 0;
-  display: flex;
   align-items: center;
-  justify-content: center;
   background-color: transparent;
+  display: flex;
+  justify-content: center;
+  margin: 0;
   min-height: calc(100vh - 7.875rem);
+  padding: 0;
 }
 #pet-form {
   align-items: center;
   border-radius: 10px;
   border: 3px solid;
+  box-shadow: var(--form-shadow);
   display: flex;
   flex-direction: column;
-  padding: 20px;
   max-width: 500px;
-  box-shadow: var(--form-shadow);
+  padding: 20px;
 }
 h1 {
+  color: var(--header);
   margin-bottom: 20px;
   text-align: center;
-  color: var(--header);
 }
 .fields {
   margin-bottom: 20px;
@@ -179,12 +175,12 @@ label {
 input[type='date'] {
   border-radius: 5px;
   border: 1px solid var(--black-mute);
+  font-family: var(--default-fonts);
+  font-size: 15px;
   margin-bottom: 10px;
   margin-top: 5px;
   padding: 8px;
   width: 100%;
-  font-size: 15px;
-  font-family: var(--default-fonts);
 }
 input[type='date']::-webkit-calendar-picker-indicator {
   filter: invert(1);
@@ -192,28 +188,28 @@ input[type='date']::-webkit-calendar-picker-indicator {
 textarea {
   border-radius: 5px;
   border: 1px solid var(--black-mute);
+  font-family: var(--default-fonts);
+  font-size: 15px;
   margin-bottom: 10px;
   margin-top: 5px;
   padding: 8px;
   resize: none;
   width: 100%;
-  font-family: var(--default-fonts);
-  font-size: 15px;
 }
 .submit {
   display: flex;
+  justify-content: space-around;
   text-align: center;
   width: 100%;
-  justify-content: space-around;
 }
 button {
   background-color: var(--black);
   border-radius: 15px;
   border: none;
   cursor: pointer;
+  font-size: 17px;
   padding: 10px 20px;
   width: 40%;
-  font-size: 17px;
 }
 .delete {
   background-color: darkred;
@@ -224,20 +220,20 @@ button:hover {
 }
 .required {
   color: darkred;
-  font-style: italic;
   font-size: 18px;
+  font-style: italic;
 }
 .info {
+  align-items: baseline;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
   padding-top: 1rem;
 }
 .reset {
   color: var(--link);
-  transition: 0.4s;
   cursor: pointer;
   padding-right: 2rem;
+  transition: 0.4s;
 }
 .reset:hover {
   color: var(--hover-link);
