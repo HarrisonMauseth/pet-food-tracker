@@ -75,9 +75,9 @@ export default {
 </script>
 
 <style scoped>
-* {
-  background-color: #0f111a;
-  color: var(--font);
+*:not(h1) {
+  background-color: var(--black-soft);
+  color: var(--font-color);
   margin: 0;
   padding: 0;
 }
@@ -92,7 +92,7 @@ export default {
   align-items: center;
   border-radius: 10px;
   border: 3px solid;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   margin-top: 50px;
@@ -101,7 +101,6 @@ export default {
   width: 300px;
 }
 h1 {
-  color: var(--header);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -127,7 +126,7 @@ input[type='password'] {
   width: 100%;
 }
 button {
-  background-color: #0a0c12;
+  background-color: var(--black);
   border-radius: 15px;
   border: none;
   cursor: pointer;
@@ -136,18 +135,18 @@ button {
   width: 75%;
 }
 button:hover {
-  background-color: #46096e;
+  background-color: var(--hover);
 }
 #register {
   text-align: center;
   width: 100%;
 }
 #register a {
-  color: #00a5b5;
+  color: var(--link);
   text-decoration: none;
 }
 #register a:hover {
-  color: #c792ea;
+  color: var(--hover-link);
   text-decoration: underline;
 }
 @media (max-width: 720px) {

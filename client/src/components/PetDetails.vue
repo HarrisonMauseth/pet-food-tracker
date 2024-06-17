@@ -95,7 +95,6 @@ img {
   grid-template-rows: 1fr 1fr;
 }
 .name {
-  color: var(--header);
   font-size: 40px;
   grid-area: name;
 }
@@ -107,9 +106,6 @@ img {
 }
 .pet-birthday {
   grid-area: birthday;
-}
-h3 {
-  color: var(--header);
 }
 .pet-notes {
   grid-area: notes;

@@ -135,7 +135,7 @@ export default {
 <style scoped>
 .pet-card {
   align-items: center;
-  background-color: var(--color-background-soft);
+  background-color: var(--black-soft);
   border-radius: 20px;
   border: 3px solid;
   display: flex;
@@ -156,7 +156,6 @@ export default {
   flex-basis: 20%;
 }
 .name {
-  color: var(--header);
   font-weight: 500;
 }
 .time {

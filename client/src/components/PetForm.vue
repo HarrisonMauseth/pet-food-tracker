@@ -135,9 +135,9 @@ export default {
 </script>
 
 <style scoped>
-* {
-  background-color: var(--color-background-soft);
-  color: var(--font);
+*:not(h1) {
+  background-color: var(--black-soft);
+  color: var(--font-color);
 }
 .pet-form-container {
   align-items: center;
@@ -152,14 +152,13 @@ export default {
   align-items: center;
   border-radius: 10px;
   border: 3px solid;
-  box-shadow: var(--form-shadow);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   max-width: 500px;
   padding: 20px;
 }
 h1 {
-  color: var(--header);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -216,7 +215,7 @@ button {
   font-weight: bold;
 }
 button:hover {
-  background-color: #46096e;
+  background-color: var(--hover);
 }
 .required {
   color: darkred;

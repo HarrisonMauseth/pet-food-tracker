@@ -29,7 +29,7 @@ export default {
   background-color: var(--black);
   border-radius: 15px;
   border: 3px solid;
-  color: #adb1ca;
+  color: var(--font-color);
   cursor: pointer;
   flex-basis: 40%;
   font-size: 20px;

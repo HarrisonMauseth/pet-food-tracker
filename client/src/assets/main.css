@@ -15,11 +15,3 @@ button {
   text-decoration: none;
   transition: 0.8s;
 }
-
-/* @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-  
-} */
