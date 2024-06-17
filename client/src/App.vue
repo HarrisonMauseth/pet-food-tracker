@@ -5,10 +5,11 @@
         <font-awesome-icon :icon="['fas', 'fa-house-chimney']" class="icon" />
         Home
       </span>
-      <span id="pets" title="Pets">
+      <loading-spinner id="spinner" :spin="isLoading" />
+      <!-- <span id="pets" title="Pets">
         <font-awesome-icon icon="fa-solid fa-paw" class="icon" />
         Pets
-      </span>
+      </span> -->
       <span id="logout" @click="logout" title="Logout">
         <font-awesome-icon icon="fa-solid fa-door-open" class="icon" />
         Logout
@@ -21,7 +22,17 @@
 </template>
 
 <script>
+import LoadingSpinner from './components/LoadingSpinner.vue';
+
 export default {
+  components: {
+    LoadingSpinner
+  },
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading;
+    }
+  },
   methods: {
     logout() {
       this.$router.push({ name: 'logout' })
@@ -38,6 +49,7 @@ export default {
   font-size: 30px;
 }
 nav {
+  align-items: center;
   background-color: var(--black);
   display: flex;
   justify-content: space-evenly;
@@ -60,6 +72,9 @@ span {
 span:hover {
   color: var(--hover-link);
   text-decoration: underline;
+}
+#spinner {
+  font-size: 30px;
 }
 main {
   position: relative;

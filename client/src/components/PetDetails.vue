@@ -42,13 +42,15 @@ export default {
       this.$router.push({ name: 'updatePet', params: { id: this.pet.id } })
     },
     loadPet() {
+      this.$store.commit('IS_LOADING')
       petService
         .getPetById(this.$route.params.id)
         .then((response) => {
+          this.$store.commit('IS_LOADED')
           this.pet = response.data
           this.getImage()
         })
-        .catch((error) => alert(error))
+        .catch(() => this.$store.commit('IS_LOADED'))
     }
   },
   mounted() {

@@ -25,11 +25,16 @@ export default {
   },
   methods: {
     loadPet(id) {
-      petService.getPetById(id).then((response) => {
-        if (response.status === 200) {
-          this.pet = response.data
-        }
-      })
+      this.$store.commit('IS_LOADING')
+      petService
+        .getPetById(id)
+        .then((response) => {
+          this.$store.commit('IS_LOADED')
+          if (response.status === 200) {
+            this.pet = response.data
+          }
+        })
+        .catch(() => this.$store.commit('IS_LOADED'))
     },
     updatePet(updatedPet) {
       this.$store.commit('IS_LOADING')

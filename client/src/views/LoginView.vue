@@ -50,9 +50,11 @@ export default {
   },
   methods: {
     login() {
+      this.$store.commit('IS_LOADING')
       authService
         .login(this.user)
         .then((response) => {
+          this.$store.commit('IS_LOADED')
           if (response.status == 200) {
             this.$store.commit('SET_AUTH_TOKEN', response.data.token)
             this.$store.commit('SET_USER', response.data.user)
@@ -60,6 +62,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.$store.commit('IS_LOADED')
           const response = error.response
           if (!response) {
             alert(error)

@@ -72,9 +72,11 @@ export default {
       if (this.user.password != this.user.confirmPassword) {
         this.error('Password & Confirm Password do not match')
       } else {
+        this.$store.commit('IS_LOADING')
         authService
           .register(this.user)
           .then((response) => {
+            this.$store.commit('IS_LOADED')
             if (response.status == 201) {
               this.success('Thank you for registering, please sign in.')
               this.$router.push({
@@ -83,6 +85,7 @@ export default {
             }
           })
           .catch((error) => {
+            this.$store.commit('IS_LOADED')
             const response = error.response
             if (!response) {
               this.error(error)

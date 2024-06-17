@@ -10,19 +10,25 @@ export default {
   props: ['logs'],
   methods: {
     feedAllPets() {
+      this.$store.commit('IS_LOADING')
       if (this.logs.length > 0) {
         logService
           .logMultiple(this.logs)
           .then((response) => {
+            this.$store.commit('IS_LOADED')
             if (response.status === 201) {
               this.$emit('logged-all-pets', response.data)
             }
           })
           .catch(() => {
-            alert('Something went wrong. Please try again.')
+            this.$store.commit('IS_LOADED')
+          })
+          .finally(() => {
+            this.$store.commit('IS_LOADED')
           })
       } else {
         alert('No feeding event to log.')
+        this.$store.commit('IS_LOADED')
       }
     }
   }

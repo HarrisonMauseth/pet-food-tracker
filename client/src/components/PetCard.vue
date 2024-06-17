@@ -54,15 +54,17 @@ export default {
       this.$router.push({ name: 'petDetails', params: { id: this.id } })
     },
     getLogs() {
+      this.$store.commit('IS_LOADING')
       logService
         .getLogsByPetId(this.id, this.defaultLog)
         .then((response) => {
+          this.$store.commit('IS_LOADED')
           if (response.status === 200) {
             this.logs = response.data
           }
         })
         .catch(() => {
-          // eat the error as there is logic in place for no logs
+          this.$store.commit('IS_LOADED')
         })
     },
     handleLoggedFood(log) {

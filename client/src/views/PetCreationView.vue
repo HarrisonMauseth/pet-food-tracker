@@ -37,7 +37,7 @@ export default {
           }
         })
         .catch(() => {
-          // eat the error
+          this.$store.commit('IS_LOADED')
         })
     }
   }

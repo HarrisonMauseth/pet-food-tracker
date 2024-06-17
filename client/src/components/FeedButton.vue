@@ -9,14 +9,17 @@ export default {
   props: ['logData'],
   methods: {
     logFeeding() {
+      this.$store.commit('IS_LOADING')
       logService
         .log(this.logData)
         .then((response) => {
+          this.$store.commit('IS_LOADED')
           if (response.status === 201) {
             this.$emit('logged-food', response.data)
           }
         })
         .catch(() => {
+          this.$store.commit('IS_LOADED')
           alert('Something went wrong. Please try again.')
         })
     }
