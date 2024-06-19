@@ -20,15 +20,11 @@ import java.util.Objects;
 @Configuration
 public class TestingDatabaseConfig {
 
-    private static final String DB_HOST =
-            Objects.requireNonNullElse(System.getenv("POSTGRES_HOST"), "localhost");
-    private static final String DB_PORT =
-            Objects.requireNonNullElse(System.getenv("POSTGRES_PORT"), "5432");
-    private static final String DB_NAME = "PetFoodTracker_test";
-    private static final String DB_USERNAME =
-            Objects.requireNonNullElse(System.getenv("POSTGRES_USER"), "postgres");
-    private static final String DB_PASSWORD =
-            Objects.requireNonNullElse(System.getenv("POSTGRES_TOKEN"), "postgres1");
+    private static final String DB_HOST =System.getenv("POSTGRES_HOST");
+    private static final String DB_PORT =System.getenv("POSTGRES_PORT");
+    private static final String DB_NAME = "PetFoodTracker-test";
+    private static final String DB_USERNAME =System.getenv("POSTGRES_USER");
+    private static final String DB_PASSWORD =System.getenv("POSTGRES_TOKEN");
     private static final String ADMIN_URL = System.getenv("POSTGRES_JDBC_ADMIN_URL");
 
     private SingleConnectionDataSource adminDataSource;

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.harrisonmauseth</groupId>
 	<artifactId>pet-food-tracker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>pet-food-tracker</name>
 	<description>Back end server and API layer for pet food tracker app</description>
 	<properties>
