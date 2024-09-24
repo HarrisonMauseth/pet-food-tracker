@@ -21,10 +21,10 @@ While the project is by no means massive, it is worth highlighting a few of the 
 
 ## Roadmap
 I am tackling this project with a three phased approach:
-- Phase One - initial design and implementation of standalone device **(Completed)**
-- Phase Two - design a database and server to be accessible via a RESTful API **(Completed)**
-- Phase Three - client side web appication using a SPA framework such as Vue.js **(In Prorgress)**
-- Phase Four - repurpose the standalone arduino porject to leverage the server-side API
+- [Phase One](#phase-one) - initial design and implementation of standalone device **(Completed)**
+- [Phase Two](#phase-two) - design a database and server to be accessible via a RESTful API **(Completed)**
+- [Phase Three](#phase-three) - client side web appication using a SPA framework such as Vue.js **(In Prorgress)**
+- [Phase Four](#phase-four) - repurpose the standalone arduino porject to leverage the server-side API
 
 At this time, phase one is complete and the standalone device mentioned previously works as intended. I am currently working on creating a REST API written in Java that leverages Spring Boot.
 
